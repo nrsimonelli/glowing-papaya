@@ -1,9 +1,22 @@
+/* Base */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px;
+  text-align: center;
+}
 /* Heading */
 .prompt-text {
   margin-top: 40px;
 }
-/* Buttons */
-.button {
+/* Actions */
+.option-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+.add.button {
   background: var(--accent1);
 }
 .button:disabled {
