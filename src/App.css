@@ -1,0 +1,12 @@
+/* Heading */
+.prompt-text {
+  margin-top: 40px;
+}
+/* Buttons */
+.button {
+  background: var(--accent1);
+}
+.button:disabled {
+  background: var(--button);
+  color: var(--disabled);
+}
