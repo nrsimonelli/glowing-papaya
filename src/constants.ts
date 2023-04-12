@@ -1,4 +1,4 @@
-export const UNIT = {
+export const UNIT_NAME = {
   ALCRYST: 'Alcryst',
   ALEAR: 'Alear',
   ALFRED: 'Alfred',
@@ -42,7 +42,7 @@ export const UNIT = {
   ZELKOV: 'Zelkov',
 }
 
-export const JOB = {
+export const JOB_NAME = {
   ARCHER: 'Archer',
   AVENIR: 'Avenir',
   AXE_ARMOR: 'Axe Armor',
