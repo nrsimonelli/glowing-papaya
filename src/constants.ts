@@ -1,4 +1,4 @@
-const JOB_NAME = {
+export const JOB_NAME = {
   ARCHER: 'Archer',
   AVENIR: 'Avenir',
   AXE_ARMOR: 'Axe Armor',
@@ -60,7 +60,7 @@ const JOB_NAME = {
   WYVERN_KNIGHT: 'Wyvern Knight',
 }
 
-const UNIT_NAME = {
+export const UNIT_NAME = {
   ALCRYST: 'Alcryst',
   ALEAR: 'Alear',
   ALFRED: 'Alfred',
@@ -104,7 +104,7 @@ const UNIT_NAME = {
   ZELKOV: 'Zelkov',
 }
 
-const JOB_GROUP = {
+export const JOB_GROUP = {
   ADVANCED: {
     AVENIR: {
       isExclusive: UNIT_NAME.ALFRED,
@@ -290,7 +290,7 @@ const JOB_GROUP = {
   },
 }
 
-const JOB_GROWTH = {
+export const JOB_GROWTH = {
   DRAGON_CHILD: {
     HP: 10,
     STR: 10,
@@ -942,7 +942,7 @@ const JOB_GROWTH = {
   },
 }
 
-const UNIT_GROWTH = {
+export const UNIT_GROWTH = {
   ALCRYST: {
     HP: 65,
     STR: 30,
@@ -1396,7 +1396,7 @@ const UNIT_GROWTH = {
   },
 }
 
-const JOB_STAT_MAX = {
+export const JOB_STAT_MAX = {
   DRAGON_CHILD: {
     HP: 68,
     STR: 41,
@@ -2048,7 +2048,7 @@ const JOB_STAT_MAX = {
   },
 }
 
-const UNIT_MOD = {
+export const UNIT_MOD = {
   ALCRYST: {
     HP: 0,
     STR: 1,
@@ -2500,17 +2500,4 @@ const UNIT_MOD = {
     LCK: 1,
     BLD: 0,
   },
-}
-
-export const UNIT = {
-  GROWTH: UNIT_GROWTH,
-  NAME: UNIT_NAME,
-  MOD: UNIT_MOD,
-}
-
-export const JOB = {
-  GROUP: JOB_GROUP,
-  GROWTH: JOB_GROWTH,
-  NAME: JOB_NAME,
-  STAT_MAX: JOB_STAT_MAX,
 }
