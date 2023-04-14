@@ -1,9 +1,13 @@
 import { Select, SelectItem } from './components/Select'
 
-export const SelectJob = () => {
+interface SelectJobProps {
+  value: string
+  onValueChange: React.Dispatch<React.SetStateAction<string>>
+}
+export const SelectJob = ({ value, onValueChange }: SelectJobProps) => {
   return (
-    <Select value={''} onValueChange={() => console.log('valueChange')}>
-      <SelectItem value={''}>{'Select a class'}</SelectItem>
+    <Select value={value} onValueChange={onValueChange}>
+      <SelectItem value={'default'}>{'Select a class'}</SelectItem>
       {/* Map Units... */}
     </Select>
   )

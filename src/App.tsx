@@ -2,12 +2,13 @@ import { useState } from 'react'
 import './App.css'
 import { Mode } from './Mode'
 import { SelectUnit } from './SelectUnit'
+import { SelectJob } from './SelectJob'
 
 export const App = () => {
   const [mode, setMode] = useState<'Overview' | 'Compare'>('Overview')
   const [characterList, setCharacterList] = useState([])
-  const [selectedUnit, setSelectedUnit] = useState([])
-  const [selectedJob, setSelectedJob] = useState([])
+  const [selectedUnit, setSelectedUnit] = useState('default')
+  const [selectedJob, setSelectedJob] = useState('default')
 
   return (
     <div>
@@ -21,8 +22,8 @@ export const App = () => {
       <p className='prompt-text'>Select your option and click Add</p>
       <div className='option-row'>
         {/* Input fields here here */}
-        <SelectUnit />
-        <SelectJob />
+        <SelectUnit value={selectedUnit} onValueChange={setSelectedUnit} />
+        <SelectJob value={selectedJob} onValueChange={setSelectedJob} />
         <button className='add button'>Add</button>
         <button className='button'>Clear</button>
       </div>

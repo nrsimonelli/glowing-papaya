@@ -1,9 +1,13 @@
 import { Select, SelectItem } from './components/Select'
 
-export const SelectUnit = () => {
+interface SelectUnitProps {
+  value: string
+  onValueChange: React.Dispatch<React.SetStateAction<string>>
+}
+export const SelectUnit = ({ value, onValueChange }: SelectUnitProps) => {
   return (
-    <Select value={''} onValueChange={() => console.log('valueChange')}>
-      <SelectItem value={''}>{'Select a character'}</SelectItem>
+    <Select value={value} onValueChange={onValueChange}>
+      <SelectItem value={'default'}>{'Select a character'}</SelectItem>
       {/* Map Units... */}
     </Select>
   )
