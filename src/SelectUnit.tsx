@@ -1,4 +1,6 @@
 import { Select, SelectItem } from './components/Select'
+import { UNIT_NAME } from './constants'
+import { UnitName, objectEntries } from './utils'
 
 interface SelectUnitProps {
   value: string
@@ -9,6 +11,11 @@ export const SelectUnit = ({ value, onValueChange }: SelectUnitProps) => {
     <Select value={value} onValueChange={onValueChange}>
       <SelectItem value={'default'}>{'Select a character'}</SelectItem>
       {/* Map Units... */}
+      {objectEntries(UNIT_NAME).map(([unitKey, displayName]) => (
+        <SelectItem key={unitKey} value={unitKey}>
+          {displayName}
+        </SelectItem>
+      ))}
     </Select>
   )
 }
