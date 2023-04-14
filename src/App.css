@@ -9,6 +9,27 @@
 .prompt-text {
   margin-top: 40px;
 }
+
+/* Mode Toggle */
+.toggle-root {
+  margin-top: 8px;
+}
+.toggle-item {
+  border-radius: 0;
+}
+.toggle-item:first-child {
+  margin-left: 0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.toggle-item:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.toggle-item[data-state='on'] {
+  background-color: var(--accent1);
+}
+
 /* Actions */
 .option-row {
   display: flex;
