@@ -1,15 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Mode } from './Mode'
 import { SelectUnit } from './SelectUnit'
 import { SelectJob } from './SelectJob'
-import { UnitName, JobName, CharacterDetail } from './utils'
+import { UnitName, CharacterDetail } from './utils/types'
+import { RankToggle } from './RankToggle'
+import { OverviewMode } from './OverviewMode'
+import { STAT_KEY } from './constants'
+import { Image } from './Image'
+
+import { orderBy, sortBy } from 'lodash'
+import { useRankedList } from './utils/useRankedList'
 
 export const App = () => {
-  const [mode, setMode] = useState<'Overview' | 'Compare'>('Overview')
+  const [mode, setMode] = useState<'Overview' | 'Favorites'>('Overview')
   const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
   const [selectedUnit, setSelectedUnit] = useState('default')
   const [selectedJob, setSelectedJob] = useState('default')
+
+  const [statList, setStatList] = useState([])
 
   const isOverview = mode === 'Overview'
 
@@ -19,6 +28,19 @@ export const App = () => {
   const handleClear = () => {
     //placeholder
   }
+
+  type StatKey = typeof STAT_KEY[number]
+  type StatList = { [key in StatKey]: number }
+
+  interface UnitGrowthArr extends StatList {
+    ID: UnitName
+  }
+
+  const { rankOrder } = useRankedList(selectedJob, statList)
+
+  useEffect(() => {
+    console.log('rankOrder -->', rankOrder)
+  }, [rankOrder])
 
   return (
     <div>
@@ -33,32 +55,54 @@ export const App = () => {
       {/* Comparison actions */}
       <p className='prompt-text'>
         {isOverview
-          ? 'Select stats for rankings'
+          ? 'Select up to three stats to rank units'
           : 'Select your option and click Add'}
       </p>
-      <div className='option-row'>
-        <SelectUnit value={selectedUnit} onValueChange={setSelectedUnit} />
+      {/* SECTION */}
+      {mode === 'Favorites' && (
+        <div className='option-row'>
+          <SelectUnit value={selectedUnit} onValueChange={setSelectedUnit} />
+          <SelectJob
+            value={selectedJob}
+            onValueChange={setSelectedJob}
+            selectedUnit={selectedUnit}
+          />
+          <button className='add button' onClick={handleAdd}>
+            Add
+          </button>
+          <button className='button' onClick={handleClear}>
+            Clear
+          </button>
+        </div>
+      )}
+      {/* display overall rankings by stat(s)? */}
+      {/* <div> */}
+      <div className='option-col'>
+        <OverviewMode />
         <SelectJob
+          selectedUnit={'AMBER'}
           value={selectedJob}
           onValueChange={setSelectedJob}
-          selectedUnit={selectedUnit}
         />
-        <button className='add button' onClick={handleAdd}>
-          Add
-        </button>
-        <button className='button' onClick={handleClear}>
-          Clear
-        </button>
+        <RankToggle statList={statList} setStatList={setStatList} />
       </div>
-      {/* display overall rankings by stat(s)? */}
-      <div></div>
+      {/* </div> */}
       {/* end display rankings */}
       {/*
        */}
       {/*
        */}
       {/* display list of characters */}
-      <div></div>
+      <div
+        style={{ display: 'flex', flexDirection: 'row', padding: 20, gap: 20 }}
+      >
+        {rankOrder.length > 0 &&
+          rankOrder.map((rank, index) => {
+            if (index < 10) {
+              return <Image name={rank.ID} />
+            }
+          })}
+      </div>
       {/* end display list */}
     </div>
   )
