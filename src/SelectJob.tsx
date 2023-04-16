@@ -1,7 +1,7 @@
 import { SelectGroup, SelectLabel } from '@radix-ui/react-select'
 import { Select, SelectItem } from './components/Select'
 import { JOB_NAME, JOB_GROUP, UNIT_NAME } from './constants'
-import { UnitName, objectEntries } from './utils'
+import { UnitName, objectEntries } from './utils/types'
 
 interface SelectJobProps {
   value: string

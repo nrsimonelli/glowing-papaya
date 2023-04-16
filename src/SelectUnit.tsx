@@ -1,6 +1,6 @@
 import { Select, SelectItem } from './components/Select'
 import { UNIT_NAME } from './constants'
-import { UnitName, objectEntries } from './utils'
+import { objectEntries } from './utils/types'
 
 interface SelectUnitProps {
   value: string
