@@ -6,7 +6,7 @@ import { UnitName, objectEntries } from './utils/types'
 interface SelectJobProps {
   value: string
   onValueChange: React.Dispatch<React.SetStateAction<string>>
-  selectedUnit: string
+  selectedUnit?: string
 }
 export const SelectJob = ({
   value,
@@ -21,8 +21,15 @@ export const SelectJob = ({
         <SelectGroup key={group}>
           <SelectLabel className={'select-label'}>{group}</SelectLabel>
           {objectEntries(jobList).map(([key, { isExclusive }]) => {
+            if (!isExclusive) {
+              return (
+                <SelectItem key={key} value={key}>
+                  {JOB_NAME[key]}
+                </SelectItem>
+              )
+            }
             if (
-              !isExclusive ||
+              selectedUnit &&
               isExclusive === UNIT_NAME[selectedUnit as UnitName]
             ) {
               return (
