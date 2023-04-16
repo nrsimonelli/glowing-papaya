@@ -2501,3 +2501,15 @@ export const UNIT_MOD = {
     BLD: 0,
   },
 }
+
+export const STAT_KEY = [
+  'HP',
+  'STR',
+  'MAG',
+  'DEX',
+  'SPD',
+  'DEF',
+  'RES',
+  'LCK',
+  'BLD',
+] as const
