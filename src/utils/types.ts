@@ -1,4 +1,4 @@
-import * as CONST from './constants'
+import * as CONST from '../constants'
 
 export type UnitName = keyof typeof CONST.UNIT_NAME
 export type JobName = keyof typeof CONST.JOB_NAME
