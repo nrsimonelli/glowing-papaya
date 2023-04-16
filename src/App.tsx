@@ -11,6 +11,7 @@ import { Image } from './Image'
 
 import { orderBy, sortBy } from 'lodash'
 import { useRankedList } from './utils/useRankedList'
+import { RankOverview } from './RankOverivew'
 
 export const App = () => {
   const [mode, setMode] = useState<'Overview' | 'Favorites'>('Overview')
@@ -48,7 +49,9 @@ export const App = () => {
       <h1>Fire Emblem Engage</h1>
       <h3>Choose what you would like to compare below</h3>
       {/* Toggle here */}
-      {JSON.stringify(selectedUnit)}
+      {/* {JSON.stringify(selectedUnit)}
+      {JSON.stringify(selectedJob)}
+      {JSON.stringify(characterList)} */}
       <Mode mode={mode} setMode={setMode} />
       {/* Overall ranking actions... */}
       {/* end ranking options */}
@@ -59,7 +62,7 @@ export const App = () => {
           : 'Select your option and click Add'}
       </p>
       {/* SECTION */}
-      {mode === 'Favorites' && (
+      {!isOverview && (
         <div className='option-row'>
           <SelectUnit value={selectedUnit} onValueChange={setSelectedUnit} />
           <SelectJob
@@ -75,35 +78,8 @@ export const App = () => {
           </button>
         </div>
       )}
-      {/* display overall rankings by stat(s)? */}
-      {/* <div> */}
-      <div className='option-col'>
-        <OverviewMode />
-        <SelectJob
-          selectedUnit={'AMBER'}
-          value={selectedJob}
-          onValueChange={setSelectedJob}
-        />
-        <RankToggle statList={statList} setStatList={setStatList} />
-      </div>
-      {/* </div> */}
-      {/* end display rankings */}
-      {/*
-       */}
-      {/*
-       */}
-      {/* display list of characters */}
-      <div
-        style={{ display: 'flex', flexDirection: 'row', padding: 20, gap: 20 }}
-      >
-        {rankOrder.length > 0 &&
-          rankOrder.map((rank, index) => {
-            if (index < 10) {
-              return <Image name={rank.ID} />
-            }
-          })}
-      </div>
-      {/* end display list */}
+
+      {isOverview && <RankOverview />}
     </div>
   )
 }
