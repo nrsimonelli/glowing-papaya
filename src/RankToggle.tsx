@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import { Toggle, ToggleOption } from './components/Toggle'
 import { STAT_KEY } from './constants'
+import { StatKey } from './utils/types'
 
-export const RankToggle = ({ statList, setStatList }) => {
+export const RankToggle = ({
+  statList,
+  setStatList,
+}: {
+  statList: StatKey[]
+  setStatList: React.Dispatch<React.SetStateAction<StatKey[]>>
+}) => {
   const isFull = statList.length === 3
 
-  const handleValueChange = (value: string[]) => {
+  const handleValueChange = (value: StatKey[]) => {
     console.log(value)
     if (!value) {
       return
@@ -13,16 +20,20 @@ export const RankToggle = ({ statList, setStatList }) => {
     setStatList(value)
   }
 
-  const isSelected = (val: string) => statList.includes(val)
+  const isSelected = (val: StatKey) => statList.includes(val)
 
   return (
     <Toggle
       type={'multiple'}
       value={statList}
-      onValueChange={(value) => handleValueChange(value)}
+      onValueChange={(value) => handleValueChange(value as StatKey[])}
     >
       {STAT_KEY.map((key) => (
-        <ToggleOption value={key} disabled={isFull && !isSelected(key)}>
+        <ToggleOption
+          key={key}
+          value={key}
+          disabled={isFull && !isSelected(key)}
+        >
           {key}
         </ToggleOption>
       ))}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { JOB_GROWTH, STAT_KEY, UNIT_GROWTH } from '../constants'
-import { JobName, objectKeys } from './types'
+import { JobName, initialValues, objectKeys } from './types'
 import { orderBy } from 'lodash'
 
 type Stat = typeof STAT_KEY[number]
@@ -31,15 +31,7 @@ export const useRankedList = (selectedJob: string, statPriority: Stat[]) => {
         },
         {
           ID: unit,
-          HP: 0,
-          STR: 0,
-          MAG: 0,
-          DEX: 0,
-          SPD: 0,
-          DEF: 0,
-          RES: 0,
-          LCK: 0,
-          BLD: 0,
+          ...initialValues,
           BST: 0,
         }
       )

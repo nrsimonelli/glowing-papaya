@@ -239,3 +239,10 @@
 .card-root:hover .cross-icon {
   display: flex;
 }
+
+/* CHARACTER DISPLAY */
+.character-display-container {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
