@@ -13,7 +13,6 @@ export const RankToggle = ({
   const isFull = statList.length === 3
 
   const handleValueChange = (value: StatKey[]) => {
-    console.log(value)
     if (!value) {
       return
     }

@@ -6,13 +6,11 @@ import {
   JobName,
   UnitName,
   initialValues,
-  objectEntries,
-  StatKey,
   MinMaxObj,
 } from './utils/types'
-import { useRankedList } from './utils/useRankedList'
 import { CharacterCard } from './CharacterCard'
 import { JOB_GROWTH, STAT_KEY, UNIT_GROWTH } from './constants'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
   const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
@@ -32,8 +30,6 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
     const jobGrowth = JOB_GROWTH[job]
     const isJean = unit === 'JEAN'
 
-    console.log('calc ==>', unit, job)
-
     return STAT_KEY.reduce((acc, stat) => {
       const value = unitGrowth[stat] + jobGrowth[stat] * (isJean ? 2 : 1)
       return {
@@ -45,7 +41,6 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
 
   const setStat = (minMax: { MIN: number; MAX: number }, value: number) => {
     if (!minMax) {
-      console.log('in undefined block')
       return {
         MIN: value,
         MAX: value,
@@ -59,7 +54,6 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
   }
 
   const minMaxByStat = useMemo(() => {
-    console.log('running memo')
     const result = {} as MinMaxObj
 
     for (const character of characterList) {
@@ -97,6 +91,8 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
     setCharacterList(updatedList)
   }
 
+  const [parent] = useAutoAnimate()
+
   return (
     <div>
       {mode === 'Favorites' && (
@@ -119,7 +115,7 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
               Clear
             </button>
           </div>
-          <div className='character-display-container'>
+          <div className='character-display-container' ref={parent}>
             {characterList.map((character) => (
               <CharacterCard
                 key={character.ID}

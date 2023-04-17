@@ -245,4 +245,9 @@
   display: flex;
   margin-top: 20px;
   gap: 20px;
+  flex-wrap: wrap;
+  max-width: 1040px;
+  /* outline: 2px auto; */
+  /* justify-content: center; */
+  /* flex-basis: 400px; */
 }

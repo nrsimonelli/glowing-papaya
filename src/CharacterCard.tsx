@@ -2,7 +2,6 @@ import { CrossCircledIcon } from '@radix-ui/react-icons'
 import { Image } from './Image'
 import { STAT_KEY, UNIT_GROWTH } from './constants'
 import { CharacterDetail, MinMaxObj } from './utils/types'
-import { useCombinedGrowth } from './utils/useCombinedGrowth'
 
 export const CharacterCard = ({
   character,

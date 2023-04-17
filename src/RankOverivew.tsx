@@ -4,12 +4,14 @@ import { RankToggle } from './RankToggle'
 import { SelectJob } from './SelectJob'
 import { useRankedList } from './utils/useRankedList'
 import { JobName, StatKey } from './utils/types'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export const RankOverview = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
   const [selectedJob, setSelectedJob] = useState<JobName | 'default'>('default')
   const [statList, setStatList] = useState<StatKey[]>([])
   const { rankOrder } = useRankedList(selectedJob, statList)
-  console.log(mode)
+  const [parent] = useAutoAnimate()
+
   return (
     <div>
       {mode === 'Overview' && (
@@ -26,12 +28,13 @@ export const RankOverview = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
               padding: 20,
               gap: 20,
             }}
+            ref={parent}
           >
             {rankOrder.length > 0 &&
               rankOrder.map((rank, index) => {
                 if (index < 10) {
                   return (
-                    <div key={`rank-${index}`}>
+                    <div key={rank.ID}>
                       <Image name={rank.ID} />
                       {statList.map((s) => (
                         <div key={s}>
