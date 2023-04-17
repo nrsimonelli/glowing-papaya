@@ -48,7 +48,7 @@
   background: var(--accent1);
 }
 .button:disabled {
-  background: var(--button);
+  background: var(--ev1);
   color: var(--disabled);
 }
 
@@ -64,11 +64,11 @@
   background-color: var(--accent1);
 }
 .select-trigger:focus {
-  box-shadow: 0 0 0 2px black;
+  box-shadow: 0 0 0 2px var(--accent1);
 }
 .select-content {
   overflow: hidden;
-  background-color: var(--button);
+  background-color: #2a2a2a;
   border-radius: 8px;
 }
 .select-viewport {
@@ -124,7 +124,7 @@
   animation: loading 1s linear infinite alternate;
 }
 .fallback {
-  background: var(--button);
+  background: var(--ev1);
 }
 
 .image-root {
@@ -137,13 +137,87 @@
   width: 90px;
   height: 90px;
   border-radius: 100%;
+  background-color: var(--ev1);
+}
+.square {
+  background-color: transparent;
+  border-radius: 8px;
+  width: auto;
+  height: 120px;
+}
+.primary {
+  background-color: var(--accent1);
 }
 
 @keyframes loading {
   0% {
-    background-color: hsl(200, 0%, 10%);
+    background-color: var(--ev1);
   }
   100% {
-    background-color: hsl(200, 0%, 5%);
+    background-color: var(--ev2);
   }
+}
+
+/* DISPLAY CARD */
+.card-root {
+  /* height: 240px; */
+  /* width: 160px; */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ev1);
+  width: 160px;
+  /* gap: 10px; */
+}
+.card-image {
+  background: linear-gradient(
+    to bottom right,
+    rgb(110, 86, 207),
+    rgb(0, 144, 255)
+  );
+  /* rgb(57, 44, 114)
+  rgb(13, 56, 104) */
+  /* rgb(88, 66, 195)
+  rgb(9, 84, 165) */
+  /* rgb(44, 34, 80) */
+  /* rgb(16, 36, 62) */
+  /* rgb(110, 86, 207)
+  rgb(0, 144, 255) */
+  /* background: rgb(158, 140, 252); */
+  /* background: rgb(82, 169, 255); */
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  padding-top: 10px;
+  width: 100%;
+}
+.card-detail {
+  width: 100px;
+  /* width: 100%; */
+  /* background-color: var(--ev1); */
+  padding: 16px;
+  border-radius: 8px;
+  /* border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px; */
+}
+.detail-row {
+  /* font-size: 16px; */
+  line-height: 1.5;
+  display: flex;
+  /* gap: 5px; */
+}
+.row-name {
+  text-align: left;
+  /* padding-left: 8px; */
+  width: 60px;
+}
+.row-value {
+  flex: 1;
+  /* text-align: center; */
+}
+.positive {
+  color: var(--positive);
+}
+.negative {
+  color: var(--negative);
 }

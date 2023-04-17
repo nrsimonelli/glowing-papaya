@@ -1,8 +1,12 @@
 :root {
-  --bg: #242424;
+  --bg: #1a1a1a;
+  --ev1: rgba(255, 255, 255, 0.07);
+  --ev2: rgba(255, 255, 255, 0.09);
+  --ev3: rgba(255, 255, 255, 0.12);
+  --ev4: rgba(255, 255, 255, 0.15);
   --text: rgba(255, 255, 255, 0.87);
   --disabled: #75747a;
-  --button: #1a1a1a;
+  /* --button: #1a1a1a; */
   --accent1: #646cff;
   --accent2: #535bf2;
   --positive: hsl(131 43% 57.2%);
@@ -53,7 +57,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--button);
+  background-color: var(--ev1);
   cursor: pointer;
   transition: border-color 0.25s;
 }
