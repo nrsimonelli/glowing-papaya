@@ -160,22 +160,22 @@
 
 /* DISPLAY CARD */
 .card-root {
-  /* height: 240px; */
-  /* width: 160px; */
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: var(--ev1);
-  width: 160px;
-  /* gap: 10px; */
 }
 .card-image {
   background: linear-gradient(
     to bottom right,
-    rgb(110, 86, 207),
+    rgb(233, 61, 130),
     rgb(0, 144, 255)
   );
+  /* colors are hard... */
+  /* rgb(229, 72, 77) */
+  /* rgb(110, 86, 207), */
+  /* rgb(233, 61, 130) */
   /* rgb(57, 44, 114)
   rgb(13, 56, 104) */
   /* rgb(88, 66, 195)
@@ -192,32 +192,50 @@
   width: 100%;
 }
 .card-detail {
-  width: 100px;
-  /* width: 100%; */
+  width: 160px;
   /* background-color: var(--ev1); */
   padding: 16px;
-  border-radius: 8px;
-  /* border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px; */
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 .detail-row {
   /* font-size: 16px; */
   line-height: 1.5;
   display: flex;
-  /* gap: 5px; */
 }
 .row-name {
   text-align: left;
-  /* padding-left: 8px; */
   width: 60px;
 }
 .row-value {
   flex: 1;
-  /* text-align: center; */
 }
 .positive {
   color: var(--positive);
 }
 .negative {
   color: var(--negative);
+}
+.icon-row {
+  display: flex;
+  line-height: 1.5;
+  justify-content: center;
+}
+.detail-class {
+  display: flex;
+  /* flex: 1; */
+}
+.delete {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 8px;
+}
+/* reveal on hover? */
+.cross-icon {
+  display: none;
+  /* display: flex; */
+}
+.card-root:hover .cross-icon {
+  display: flex;
 }

@@ -12,6 +12,7 @@ import { Image } from './Image'
 import { orderBy, sortBy } from 'lodash'
 import { useRankedList } from './utils/useRankedList'
 import { RankOverview } from './RankOverivew'
+import { CrossCircledIcon } from '@radix-ui/react-icons'
 
 export const App = () => {
   const [mode, setMode] = useState<'Overview' | 'Favorites'>('Overview')
@@ -63,20 +64,94 @@ export const App = () => {
       </p>
       {/* SECTION */}
       {!isOverview && (
-        <div className='option-row'>
-          <SelectUnit value={selectedUnit} onValueChange={setSelectedUnit} />
-          <SelectJob
-            value={selectedJob}
-            onValueChange={setSelectedJob}
-            selectedUnit={selectedUnit}
-          />
-          <button className='add button' onClick={handleAdd}>
-            Add
-          </button>
-          <button className='button' onClick={handleClear}>
-            Clear
-          </button>
-        </div>
+        <>
+          <div className='option-row'>
+            <SelectUnit value={selectedUnit} onValueChange={setSelectedUnit} />
+            <SelectJob
+              value={selectedJob}
+              onValueChange={setSelectedJob}
+              selectedUnit={selectedUnit}
+            />
+            <button className='add button' onClick={handleAdd}>
+              Add
+            </button>
+            <button className='button' onClick={handleClear}>
+              Clear
+            </button>
+          </div>
+          <div
+            style={{
+              // outline: '2px auto',
+              display: 'flex',
+              marginTop: 20,
+              gap: 20,
+            }}
+          >
+            <div className='card-root'>
+              <div className='card-image'>
+                <Image className='square' name={'IVY'} />
+              </div>
+              <div className='card-detail'>
+                <div className='detail-row'>
+                  <div className='detail-class'>WYVERN</div>
+                  <div className='delete'>
+                    <CrossCircledIcon className='cross-icon' />
+                  </div>
+                </div>
+                {STAT_KEY.map((stat) => (
+                  <div className='detail-row'>
+                    <span className='row-name'>{stat}: </span>
+                    <span className='row-value'>
+                      {Math.floor(Math.random() * 100)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className='card-root'>
+              <div className='card-image'>
+                <Image className='square' name={'JADE'} />
+              </div>
+              <div className='card-detail'>
+                <div className='detail-row'>
+                  <div className='detail-class'>GREAT KNIGHT</div>
+                  <div className='delete'>
+                    <CrossCircledIcon className='cross-icon' />
+                  </div>
+                </div>
+                {STAT_KEY.map((stat) => (
+                  <div className='detail-row'>
+                    <span className='row-name'>{stat}: </span>
+                    <span className='row-value'>
+                      {Math.floor(Math.random() * 100)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className='card-root'>
+              <div className='card-image'>
+                <Image className='square' name={'ZELKOV'} />
+              </div>
+              <div className='card-detail'>
+                <div className='detail-row'>
+                  <div className='detail-class'>THEIF</div>
+                  <div className='delete'>
+                    <CrossCircledIcon className='cross-icon' />
+                  </div>
+                </div>
+                {STAT_KEY.map((stat) => (
+                  <div className='detail-row'>
+                    <span className='row-name'>{stat}: </span>
+                    <span className='row-value'>
+                      {Math.floor(Math.random() * 100)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
       )}
 
       {isOverview && <RankOverview />}
