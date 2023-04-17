@@ -30,7 +30,7 @@ export const RankOverview = () => {
                       {s}: {rank[s]}
                     </div>
                   ))}
-                  <div>Stat Total: {rank.RST}</div>
+                  {statList.length > 1 && <div>Stat Total: {rank.RST}</div>}
                 </div>
               )
             }

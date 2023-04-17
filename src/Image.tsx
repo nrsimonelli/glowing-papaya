@@ -1,9 +1,15 @@
 import { useImage } from './utils/useImage'
 
-export const Image = ({ name }: { name: string | number }) => {
+export const Image = ({
+  name,
+  className,
+}: {
+  name: string | number
+  className?: string
+}) => {
   const { image, loading, error } = useImage(name.toString())
   return (
-    <div className={'image-root'}>
+    <div className={`image-root ${className ?? ''}`}>
       {loading ? (
         <div className='image loading' />
       ) : error ? (
