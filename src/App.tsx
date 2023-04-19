@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import { Mode } from './Mode'
-import { UnitName, CharacterDetail, JobName } from './utils/types'
-import { STAT_KEY } from './constants'
 
 import { RankOverview } from './RankOverivew'
 import { FavoriteList } from './FavoriteList'
@@ -14,7 +12,9 @@ export const App = () => {
   return (
     <div>
       {/* Heading */}
-      <h1>Fire Emblem Engage</h1>
+      <h1>
+        Fire Emblem <span className='gradient-text'>Engage</span>
+      </h1>
       <h3>Choose what you would like to compare below</h3>
       {/* Toggle here */}
       <Mode mode={mode} setMode={setMode} />

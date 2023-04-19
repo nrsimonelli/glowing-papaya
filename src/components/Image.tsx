@@ -1,4 +1,4 @@
-import { useImage } from './utils/useImage'
+import { useImage } from '../utils/useImage'
 
 export const Image = ({
   name,
