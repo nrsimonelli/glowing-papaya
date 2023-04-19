@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image } from './Image'
+import { Image } from './components/Image'
 import { RankToggle } from './RankToggle'
 import { SelectJob } from './SelectJob'
 import { useRankedList } from './utils/useRankedList'
@@ -21,31 +21,19 @@ export const RankOverview = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
             <RankToggle statList={statList} setStatList={setStatList} />
           </div>
           {/* DISPLAY UNITS */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              padding: 20,
-              gap: 20,
-            }}
-            ref={parent}
-          >
+          <div className='rank-display-container' ref={parent}>
             {rankOrder.length > 0 &&
-              rankOrder.map((rank, index) => {
-                if (index < 10) {
-                  return (
-                    <div key={rank.ID}>
-                      <Image name={rank.ID} />
-                      {statList.map((s) => (
-                        <div key={s}>
-                          {s}: {rank[s]}
-                        </div>
-                      ))}
-                      {statList.length > 1 && <div>Stat Total: {rank.RST}</div>}
+              rankOrder.map((rank) => (
+                <div key={rank.ID}>
+                  <Image className='rank-image gradient' name={rank.ID} />
+                  {statList.map((s) => (
+                    <div key={s}>
+                      {s}: {rank[s]}
                     </div>
-                  )
-                }
-              })}
+                  ))}
+                  {statList.length > 1 && <div>Total: {rank.RST}</div>}
+                </div>
+              ))}
           </div>
         </>
       )}

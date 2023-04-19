@@ -9,34 +9,56 @@ import {
   MinMaxObj,
 } from './utils/types'
 import { CharacterCard } from './CharacterCard'
-import { JOB_GROWTH, STAT_KEY, UNIT_GROWTH } from './constants'
+import {
+  JOB_GROWTH,
+  JOB_MAX,
+  STAT_KEY,
+  UNIT_GROWTH,
+  UNIT_MOD,
+} from './constants'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
+  // State
   const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
   const [selectedUnit, setSelectedUnit] = useState<UnitName | 'default'>(
     'default'
   )
   const [selectedJob, setSelectedJob] = useState<JobName | 'default'>('default')
-
+  // Booleans
   const isClear = selectedJob === 'default' && selectedUnit === 'default'
   const isDuplicate = characterList.some(
     (character) => character.ID === `${selectedUnit}_${selectedJob}`
   )
   const isDefault = selectedUnit === 'default' || selectedJob === 'default'
-
-  const findCombinedGrowth = (unit: UnitName, job: JobName) => {
+  // Functions
+  const findCharacterData = (unit: UnitName, job: JobName) => {
     const unitGrowth = UNIT_GROWTH[unit]
     const jobGrowth = JOB_GROWTH[job]
+    const unitMod = UNIT_MOD[unit]
+    const jobMax = JOB_MAX[job]
     const isJean = unit === 'JEAN'
 
-    return STAT_KEY.reduce((acc, stat) => {
+    const combinedGrowth = STAT_KEY.reduce((acc, stat) => {
       const value = unitGrowth[stat] + jobGrowth[stat] * (isJean ? 2 : 1)
       return {
         ...acc,
         [stat]: value,
       }
     }, initialValues)
+
+    const personalCap = STAT_KEY.reduce((acc, stat) => {
+      const value = jobMax[stat] + unitMod[stat]
+      return {
+        ...acc,
+        [stat]: value,
+      }
+    }, initialValues)
+
+    return {
+      combinedGrowth,
+      personalCap,
+    }
   }
 
   const setStat = (minMax: { MIN: number; MAX: number }, value: number) => {
@@ -58,7 +80,7 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
 
     for (const character of characterList) {
       for (const stat of STAT_KEY) {
-        result[stat] = setStat(result[stat], character[stat])
+        result[stat] = setStat(result[stat], character.GROWTH[stat])
       }
     }
 
@@ -67,20 +89,28 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
 
   const handleAdd = () => {
     if (selectedUnit !== 'default' && selectedJob !== 'default') {
-      const combinedGrowth = findCombinedGrowth(selectedUnit, selectedJob)
+      const { combinedGrowth, personalCap } = findCharacterData(
+        selectedUnit,
+        selectedJob
+      )
       setCharacterList((previousCharacters) => [
         ...previousCharacters,
         {
           ID: `${selectedUnit}_${selectedJob}`,
           UNIT: selectedUnit,
           JOB: selectedJob,
-          ...combinedGrowth,
+          GROWTH: {
+            ...combinedGrowth,
+          },
+          CAP: {
+            ...personalCap,
+          },
         },
       ])
       handleClear()
     }
-    //placeholder
   }
+
   const handleClear = () => {
     setSelectedUnit('default')
     setSelectedJob('default')
