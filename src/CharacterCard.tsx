@@ -2,7 +2,6 @@ import { CrossCircledIcon } from '@radix-ui/react-icons'
 import { Image } from './components/Image'
 import { JOB_NAME, MAX_STAT, STAT_KEY } from './constants'
 import { CharacterDetail, MinMaxObj, StatKey } from './utils/types'
-import * as Progress from '@radix-ui/react-progress'
 
 export const CharacterCard = ({
   character,
