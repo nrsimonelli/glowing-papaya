@@ -22,7 +22,7 @@ export type Character = {
   UNIT: UnitName
   JOB: JobName
 }
-export type CharacterDetail = Character & StatList
+export type CharacterDetail = Character & { GROWTH: StatList; CAP: StatList }
 export type MinMaxObj = {
   [K in StatKey]: { MIN: number; MAX: number }
 }

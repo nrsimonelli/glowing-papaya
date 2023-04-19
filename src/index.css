@@ -9,8 +9,8 @@
   /* --button: #1a1a1a; */
   --accent1: #646cff;
   --accent2: #535bf2;
-  --positive: hsl(131 43% 57.2%);
-  --negative: hsl(358 100% 69.5%);
+  --positive: rgb(76, 195, 138);
+  --negative: rgb(255, 99, 105);
 
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;

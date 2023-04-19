@@ -1396,7 +1396,7 @@ export const UNIT_GROWTH = {
   },
 }
 
-export const JOB_STAT_MAX = {
+export const JOB_MAX = {
   DRAGON_CHILD: {
     HP: 68,
     STR: 41,
@@ -2126,7 +2126,7 @@ export const UNIT_MOD = {
     LCK: 1,
     BLD: 0,
   },
-  CÉLINE: {
+  CELINE: {
     HP: 0,
     STR: -2,
     MAG: 2,
@@ -2137,7 +2137,7 @@ export const UNIT_MOD = {
     LCK: 3,
     BLD: 0,
   },
-  CHLOÉ: {
+  CHLOE: {
     HP: 0,
     STR: -2,
     MAG: 1,
@@ -2501,6 +2501,18 @@ export const UNIT_MOD = {
     BLD: 0,
   },
 }
+
+export const MAX_STAT = {
+  HP: 96,
+  STR: 52,
+  MAG: 51,
+  DEX: 55,
+  SPD: 52,
+  DEF: 58,
+  RES: 54,
+  LCK: 55,
+  BLD: 25,
+} as const
 
 export const STAT_KEY = [
   'HP',
