@@ -149,15 +149,6 @@
   background-color: var(--accent1);
 }
 
-@keyframes loading {
-  0% {
-    background-color: var(--ev1);
-  }
-  100% {
-    background-color: var(--ev2);
-  }
-}
-
 /* DISPLAY CARD */
 .card-root {
   border-radius: 8px;
@@ -193,22 +184,44 @@
 }
 .card-detail {
   width: 160px;
-  /* background-color: var(--ev1); */
   padding: 16px;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 .detail-row {
-  /* font-size: 16px; */
   line-height: 1.5;
   display: flex;
+  align-items: center;
 }
 .row-name {
   text-align: left;
-  width: 60px;
+  width: 36px;
+  font-size: 13px;
+  padding-right: 4px;
+}
+.row-bar {
+  flex: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.bar-bg {
+  background: var(--ev1);
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+  height: 15px;
+}
+.bar-fill {
+  font-size: 13px;
+  padding-left: 4px;
+  text-align: right;
+  flex: 1;
 }
 .row-value {
-  flex: 1;
+  padding-left: 4px;
+  font-size: 13px;
+  text-align: left;
 }
 .positive {
   color: var(--positive);
@@ -243,11 +256,41 @@
 /* CHARACTER DISPLAY */
 .character-display-container {
   display: flex;
-  margin-top: 20px;
+  margin-top: 60px;
   gap: 20px;
   flex-wrap: wrap;
   max-width: 1040px;
-  /* outline: 2px auto; */
-  /* justify-content: center; */
-  /* flex-basis: 400px; */
+}
+.rank-display-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 60px;
+  gap: 20px;
+  flex-wrap: wrap;
+  /* current toolbar width ~ 647 */
+  max-width: 647px;
+  justify-content: center;
+}
+
+.favorite {
+  background: linear-gradient(to top left, rgb(233, 61, 130), rgb(0, 144, 255));
+}
+.rank-image {
+  margin-bottom: 4px;
+}
+/* .gradient-text {
+  background: linear-gradient(to left, rgb(233, 61, 130), rgb(0, 144, 255));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
+
+/* KEYFRAMES */
+@keyframes loading {
+  0% {
+    background-color: var(--ev1);
+  }
+  100% {
+    background-color: var(--ev2);
+  }
 }

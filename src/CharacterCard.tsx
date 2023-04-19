@@ -1,7 +1,8 @@
 import { CrossCircledIcon } from '@radix-ui/react-icons'
-import { Image } from './Image'
-import { STAT_KEY, UNIT_GROWTH } from './constants'
-import { CharacterDetail, MinMaxObj } from './utils/types'
+import { Image } from './components/Image'
+import { JOB_NAME, MAX_STAT, STAT_KEY } from './constants'
+import { CharacterDetail, MinMaxObj, StatKey } from './utils/types'
+import * as Progress from '@radix-ui/react-progress'
 
 export const CharacterCard = ({
   character,
@@ -12,7 +13,7 @@ export const CharacterCard = ({
   handleDelete: (arg: string) => void
   minMax: MinMaxObj
 }) => {
-  const { ID, UNIT, JOB } = character
+  const { ID, UNIT, JOB, GROWTH, CAP } = character
 
   const getStatColor = (
     value: number,
@@ -28,6 +29,17 @@ export const CharacterCard = ({
     return 'neutral'
   }
 
+  const getBarWidth = (stat: StatKey) => {
+    console.log(
+      CAP[stat],
+      '/',
+      MAX_STAT[stat],
+      '=',
+      Math.floor((CAP[stat] / MAX_STAT[stat]) * 100)
+    )
+    return Math.floor((CAP[stat] / MAX_STAT[stat]) * 100)
+  }
+
   return (
     <div className='card-root'>
       <div className='card-image'>
@@ -35,7 +47,7 @@ export const CharacterCard = ({
       </div>
       <div className='card-detail'>
         <div className='detail-row'>
-          <div className='detail-class'>{JOB}</div>
+          <div className='detail-class'>{JOB_NAME[JOB]}</div>
           <div className='delete' onClick={() => handleDelete(ID)}>
             <CrossCircledIcon className='cross-icon' />
           </div>
@@ -43,14 +55,22 @@ export const CharacterCard = ({
         {STAT_KEY.map((stat) => (
           <div key={stat} className='detail-row'>
             <span className='row-name'>{stat}: </span>
-            <span
-              className={`${getStatColor(
-                character[stat],
-                minMax[stat]
-              )} row-value`}
-            >
-              {character[stat]}
-            </span>
+            <div className='row-bar'>
+              <span
+                className='bar-bg'
+                style={{ width: `${getBarWidth(stat)}%` }}
+              >
+                <span
+                  className={`${getStatColor(
+                    GROWTH[stat],
+                    minMax[stat]
+                  )} row-value`}
+                >
+                  {GROWTH[stat]}%
+                </span>
+              </span>
+              <span className='bar-fill'>{CAP[stat]}</span>
+            </div>
           </div>
         ))}
       </div>
