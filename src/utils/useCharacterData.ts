@@ -8,7 +8,6 @@ import {
 import { JobName, UnitName, initialValues } from './types'
 
 export const useCharacterData = (unit: UnitName, job: JobName) => {
-  console.log('in useCharacterData')
   const unitGrowth = UNIT_GROWTH[unit]
   const jobGrowth = JOB_GROWTH[job]
   const unitMod = UNIT_MOD[unit]

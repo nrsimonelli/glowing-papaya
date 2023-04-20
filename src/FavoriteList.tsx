@@ -7,9 +7,11 @@ import {
   UnitName,
   initialValues,
   MinMaxObj,
+  objectEntries,
 } from './utils/types'
 import { CharacterCard } from './CharacterCard'
 import {
+  JOB_GROUP,
   JOB_GROWTH,
   JOB_MAX,
   STAT_KEY,
@@ -17,10 +19,18 @@ import {
   UNIT_MOD,
 } from './constants'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { useCharacterData } from './utils/useCharacterData'
 
-export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
+export const FavoriteList = ({
+  mode,
+  characterList,
+  setCharacterList,
+}: {
+  mode: 'Overview' | 'Favorites'
+  characterList: CharacterDetail[]
+  setCharacterList: React.Dispatch<React.SetStateAction<CharacterDetail[]>>
+}) => {
   // State
-  const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
   const [selectedUnit, setSelectedUnit] = useState<UnitName | 'default'>(
     'default'
   )
@@ -32,35 +42,6 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
   )
   const isDefault = selectedUnit === 'default' || selectedJob === 'default'
   // Functions
-  const findCharacterData = (unit: UnitName, job: JobName) => {
-    const unitGrowth = UNIT_GROWTH[unit]
-    const jobGrowth = JOB_GROWTH[job]
-    const unitMod = UNIT_MOD[unit]
-    const jobMax = JOB_MAX[job]
-    const isJean = unit === 'JEAN'
-
-    const combinedGrowth = STAT_KEY.reduce((acc, stat) => {
-      const value = unitGrowth[stat] + jobGrowth[stat] * (isJean ? 2 : 1)
-      return {
-        ...acc,
-        [stat]: value,
-      }
-    }, initialValues)
-
-    const personalCap = STAT_KEY.reduce((acc, stat) => {
-      const value = jobMax[stat] + unitMod[stat]
-      return {
-        ...acc,
-        [stat]: value,
-      }
-    }, initialValues)
-
-    return {
-      combinedGrowth,
-      personalCap,
-    }
-  }
-
   const setStat = (minMax: { MIN: number; MAX: number }, value: number) => {
     if (!minMax) {
       return {
@@ -89,7 +70,7 @@ export const FavoriteList = ({ mode }: { mode: 'Overview' | 'Favorites' }) => {
 
   const handleAdd = () => {
     if (selectedUnit !== 'default' && selectedJob !== 'default') {
-      const { combinedGrowth, personalCap } = findCharacterData(
+      const { combinedGrowth, personalCap } = useCharacterData(
         selectedUnit,
         selectedJob
       )

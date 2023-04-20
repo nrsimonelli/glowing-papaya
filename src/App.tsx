@@ -4,9 +4,11 @@ import { Mode } from './Mode'
 
 import { RankOverview } from './RankOverivew'
 import { FavoriteList } from './FavoriteList'
+import { CharacterDetail } from './utils/types'
 
 export const App = () => {
   const [mode, setMode] = useState<'Overview' | 'Favorites'>('Overview')
+  const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
   const isOverview = mode === 'Overview'
 
   return (
@@ -24,8 +26,16 @@ export const App = () => {
           : 'Select your option and click Add'}
       </p>
       {/* SECTION */}
-      <FavoriteList mode={mode} />
-      <RankOverview mode={mode} />
+      <FavoriteList
+        mode={mode}
+        characterList={characterList}
+        setCharacterList={setCharacterList}
+      />
+      <RankOverview
+        mode={mode}
+        characterList={characterList}
+        setCharacterList={setCharacterList}
+      />
     </div>
   )
 }
