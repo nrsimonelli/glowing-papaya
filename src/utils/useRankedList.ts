@@ -1,14 +1,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { JOB_GROWTH, STAT_KEY, UNIT_GROWTH } from '../constants'
-import { JobName, initialValues, objectKeys } from './types'
+import {
+  InitialValues,
+  JobName,
+  UnitName,
+  initialValues,
+  objectKeys,
+} from './types'
 import { orderBy } from 'lodash'
 
 type Stat = typeof STAT_KEY[number]
+interface RankOrder extends InitialValues {
+  ID: UnitName
+  BST: number
+  RST: number
+}
 
 export const useRankedList = (selectedJob: string, statPriority: Stat[]) => {
-  const [rankOrder, setRankOrder] = useState<Record<string, number | string>[]>(
-    []
-  )
+  const [rankOrder, setRankOrder] = useState<RankOrder[]>([])
   const growthList = useCallback(() => {
     if (!selectedJob || selectedJob === 'default') {
       return []
