@@ -41,7 +41,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   gap: 20px;
 }
 .add.button {
@@ -109,7 +108,6 @@
 .select-label {
   padding: 0 25px;
   line-height: 25px;
-  /* color: rgba(255, 255, 255, 0.45); */
 }
 
 /* IMAGE */
@@ -119,14 +117,12 @@
   object-fit: cover;
   border-radius: inherit;
 }
-
 .loading {
   animation: loading 1s linear infinite alternate;
 }
 .fallback {
   background: var(--ev1);
 }
-
 .image-root {
   display: inline-flex;
   align-items: center;
@@ -163,20 +159,6 @@
     rgb(233, 61, 130),
     rgb(0, 144, 255)
   );
-  /* colors are hard... */
-  /* rgb(229, 72, 77) */
-  /* rgb(110, 86, 207), */
-  /* rgb(233, 61, 130) */
-  /* rgb(57, 44, 114)
-  rgb(13, 56, 104) */
-  /* rgb(88, 66, 195)
-  rgb(9, 84, 165) */
-  /* rgb(44, 34, 80) */
-  /* rgb(16, 36, 62) */
-  /* rgb(110, 86, 207)
-  rgb(0, 144, 255) */
-  /* background: rgb(158, 140, 252); */
-  /* background: rgb(82, 169, 255); */
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   padding-top: 10px;
@@ -223,6 +205,9 @@
   font-size: 13px;
   text-align: left;
 }
+.top {
+  color: var(--top);
+}
 .positive {
   color: var(--positive);
 }
@@ -236,7 +221,6 @@
 }
 .detail-class {
   display: flex;
-  /* flex: 1; */
 }
 .delete {
   display: flex;
@@ -293,4 +277,9 @@
   100% {
     background-color: var(--ev2);
   }
+}
+
+.rank-order-container {
+  cursor: pointer;
+  font-size: 13px;
 }

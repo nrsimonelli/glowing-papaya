@@ -29,13 +29,6 @@ export const CharacterCard = ({
   }
 
   const getBarWidth = (stat: StatKey) => {
-    console.log(
-      CAP[stat],
-      '/',
-      MAX_STAT[stat],
-      '=',
-      Math.floor((CAP[stat] / MAX_STAT[stat]) * 100)
-    )
     return Math.floor((CAP[stat] / MAX_STAT[stat]) * 100)
   }
 
