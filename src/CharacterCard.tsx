@@ -32,6 +32,15 @@ export const CharacterCard = ({
     return Math.floor((CAP[stat] / MAX_STAT[stat]) * 100)
   }
 
+  const getValueColor = (stat: StatKey) => {
+    const topPerformer = MAX_STAT[stat] - CAP[stat] <= 3
+    // const bottomPerformer = (MIN CAP[stat])
+    if (topPerformer) {
+      return 'top'
+    }
+    return 'neutral'
+  }
+
   return (
     <div className='card-root'>
       <div className='card-image'>
@@ -61,7 +70,9 @@ export const CharacterCard = ({
                   {GROWTH[stat]}%
                 </span>
               </span>
-              <span className='bar-fill'>{CAP[stat]}</span>
+              <span className={`bar-fill ${getValueColor(stat)}`}>
+                {CAP[stat]}
+              </span>
             </div>
           </div>
         ))}
