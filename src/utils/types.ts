@@ -15,7 +15,7 @@ export type InitialValues = typeof initialValues
 
 export type UnitName = keyof typeof CONST.UNIT_NAME
 export type JobName = keyof typeof CONST.JOB_NAME
-export type StatKey = typeof CONST.STAT_KEY[number]
+export type StatKey = (typeof CONST.STAT_KEY)[number]
 export type StatList = { [key in StatKey]: number }
 export type Character = {
   ID: `${UnitName}_${JobName}`
@@ -25,6 +25,16 @@ export type Character = {
 export type CharacterDetail = Character & { GROWTH: StatList; CAP: StatList }
 export type MinMaxObj = {
   [K in StatKey]: { MIN: number; MAX: number }
+}
+
+export type PersonalBase = {
+  [K in UnitName]: {
+    LV: number
+    EXP: number
+    SP: number
+    JOB: JobName
+    STATS: StatList
+  }
 }
 
 type ValueOf<T> = T[keyof T]
