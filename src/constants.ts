@@ -3224,4 +3224,42 @@ export const PERSONAL_BASE = {
       BLD: 5,
     },
   },
-} as const
+}
+
+export const UNIT_ORIGIN = {
+  Lythos: ['ALEAR', 'VANDER', 'CLANNE', 'FRAMME'],
+  Firene: ['ALFRED', 'CELINE', 'BOUCHERON', 'ETIE', 'LOUIS', 'CHLOE', 'JEAN'],
+  Brodia: [
+    'DIAMANT',
+    'ALCRYST',
+    'AMBER',
+    'JADE',
+    'CITRINNE',
+    'LAPIS',
+    'YUNAKA',
+    'SAPHIR',
+  ],
+
+  Elusia: [
+    'IVY',
+    'HORTENSIA',
+    'ZELKOV',
+    'KAGETSU',
+    'ROSADO',
+    'GOLDMARY',
+    'ANNA',
+    'LINDON',
+  ],
+
+  Solm: [
+    'TIMERRA',
+    'FOGADO',
+    'MERRIN',
+    'PANETTE',
+    'BUNET',
+    'PANDREO',
+    'SEADALL',
+  ],
+  Gradlon: ['VEYLE', 'MAUVIER'],
+  Xenologue: ['NEL', 'RAFAL', 'ZELESTIA', 'GREGORY', 'MADELINE'],
+}
