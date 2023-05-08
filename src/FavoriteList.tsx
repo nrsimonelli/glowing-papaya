@@ -26,7 +26,7 @@ export const FavoriteList = ({
   characterList,
   setCharacterList,
 }: {
-  mode: 'Overview' | 'Favorites'
+  mode: 'Overview' | 'Favorites' | 'Planner'
   characterList: CharacterDetail[]
   setCharacterList: React.Dispatch<React.SetStateAction<CharacterDetail[]>>
 }) => {

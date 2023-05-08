@@ -4,19 +4,22 @@ export const Mode = ({
   mode,
   setMode,
 }: {
-  mode: 'Overview' | 'Favorites'
-  setMode: React.Dispatch<React.SetStateAction<'Overview' | 'Favorites'>>
+  mode: 'Overview' | 'Favorites' | 'Planner'
+  setMode: React.Dispatch<
+    React.SetStateAction<'Overview' | 'Favorites' | 'Planner'>
+  >
 }) => {
   return (
     <Toggle
       type={'single'}
       defaultValue={mode}
-      onValueChange={(value: 'Overview' | 'Favorites') => {
+      onValueChange={(value: 'Overview' | 'Favorites' | 'Planner') => {
         if (value) setMode(value)
       }}
     >
       <ToggleOption value={'Overview'}>Overview</ToggleOption>
       <ToggleOption value={'Favorites'}>Favorites</ToggleOption>
+      <ToggleOption value={'Planner'}>Planner</ToggleOption>
     </Toggle>
   )
 }

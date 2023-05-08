@@ -12,7 +12,7 @@ export const RankOverview = ({
   characterList,
   setCharacterList,
 }: {
-  mode: 'Overview' | 'Favorites'
+  mode: 'Overview' | 'Favorites' | 'Planner'
   characterList: CharacterDetail[]
   setCharacterList: React.Dispatch<React.SetStateAction<CharacterDetail[]>>
 }) => {
