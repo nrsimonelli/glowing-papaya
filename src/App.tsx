@@ -8,14 +8,14 @@ import { CharacterDetail, UnitName } from './utils/types'
 import { Slider } from './components/Slider'
 import { Image } from './components/Image'
 import { AlphaSlider } from './AlphaSlider'
+import { TeamPlanner } from './TeamPlanner'
 
 export const App = () => {
-  const [mode, setMode] = useState<'Overview' | 'Favorites'>('Overview')
+  const [mode, setMode] = useState<'Overview' | 'Favorites' | 'Planner'>(
+    'Overview'
+  )
   const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
   const isOverview = mode === 'Overview'
-
-  const [value, setValue] = useState(50)
-
   const testNames: UnitName[] = ['VEYLE', 'JADE']
 
   return (
@@ -43,9 +43,7 @@ export const App = () => {
         characterList={characterList}
         setCharacterList={setCharacterList}
       />
-      {testNames.map((unit) => (
-        <AlphaSlider unit={unit} />
-      ))}
+      <TeamPlanner mode={mode} />
     </div>
   )
 }
