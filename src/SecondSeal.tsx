@@ -3,30 +3,35 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@radix-ui/react-dropdown-menu'
-import { UnitName, objectEntries } from './utils/types'
+} from './components/Dropdown'
+import { JobName, UnitName, objectEntries } from './utils/types'
 import { JOB_GROUP, JOB_NAME } from './constants'
 
 export const SecondSeal = ({
   unit,
   isAdvanced,
   disabled,
+  handleJobChange,
 }: {
   unit: UnitName
   isAdvanced: boolean
   disabled: boolean
+  handleJobChange: (arg: JobName) => void
 }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger disabled={disabled}>Second Seal</DropdownMenuTrigger>
+      <DropdownMenuTrigger className={'DropdownTrigger'} disabled={disabled}>
+        Second Seal
+      </DropdownMenuTrigger>
       <DropdownMenuContent className={'DropdownMenuContent'}>
         {isAdvanced &&
           objectEntries(JOB_GROUP.ADVANCED).map(([key, { isExclusive }]) => {
             if (!isExclusive || isExclusive === unit) {
               return (
                 <DropdownMenuItem
+                  key={key}
                   className={'DropdownMenuItem'}
-                  textValue={key}
+                  onSelect={() => handleJobChange(key)}
                 >
                   {JOB_NAME[key]}
                 </DropdownMenuItem>
@@ -36,7 +41,11 @@ export const SecondSeal = ({
         {objectEntries(JOB_GROUP.BASE).map(([key, { isExclusive }]) => {
           if (!isExclusive || isExclusive === unit) {
             return (
-              <DropdownMenuItem className={'DropdownMenuItem'} textValue={key}>
+              <DropdownMenuItem
+                key={key}
+                className={'DropdownMenuItem'}
+                onSelect={() => handleJobChange(key)}
+              >
                 {JOB_NAME[key]}
               </DropdownMenuItem>
             )
@@ -45,7 +54,11 @@ export const SecondSeal = ({
         {objectEntries(JOB_GROUP.SPECIAL).map(([key, { isExclusive }]) => {
           if (!isExclusive || isExclusive === unit) {
             return (
-              <DropdownMenuItem className={'DropdownMenuItem'} textValue={key}>
+              <DropdownMenuItem
+                key={key}
+                className={'DropdownMenuItem'}
+                onSelect={() => handleJobChange(key)}
+              >
                 {JOB_NAME[key]}
               </DropdownMenuItem>
             )
