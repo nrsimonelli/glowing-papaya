@@ -12,7 +12,7 @@ import { TeamPlanner } from './TeamPlanner'
 
 export const App = () => {
   const [mode, setMode] = useState<'Overview' | 'Favorites' | 'Planner'>(
-    'Overview'
+    'Planner'
   )
   const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
   const isOverview = mode === 'Overview'

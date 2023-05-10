@@ -1,15 +1,50 @@
 import { useCallback, useState } from 'react'
-import { UnitName, objectKeys } from './utils/types'
+import {
+  JobName,
+  StatKey,
+  UnitName,
+  objectEntries,
+  objectKeys,
+} from './utils/types'
 import { PERSONAL_BASE, UNIT_NAME, UNIT_ORIGIN } from './constants'
 import { FilterPanel, FilterItem } from './FilterPanel'
+import { ExpSlider } from './ExpSlider'
+import { useCharacterData } from './utils/useCharacterData'
+import { useLevelUp } from './utils/useLevelUp'
+
+const uiTest = ['CLANNE', 'FOGADO', 'AMBER']
 
 const initialData = objectKeys(UNIT_NAME).map((unit) => ({
   id: unit,
-  isVisible: true,
+  isVisible: uiTest.some((x) => x === unit),
+  base: PERSONAL_BASE[unit],
   data: [PERSONAL_BASE[unit]],
 }))
 
-type InitialData = typeof initialData
+export type UnitData = {
+  LV: number
+  EXP: number
+  SP: number
+  JOB: JobName
+  STATS: {
+    HP: number
+    STR: number
+    MAG: number
+    DEX: number
+    SPD: number
+    DEF: number
+    RES: number
+    LCK: number
+    BLD: number
+  }
+}
+
+type InitialData = {
+  id: UnitName
+  isVisible: boolean
+  base: UnitData
+  data: UnitData[]
+}
 
 const GraphDisplay = () => {
   return <div>Graph</div>
@@ -20,7 +55,9 @@ export const TeamPlanner = ({
 }: {
   mode: 'Overview' | 'Favorites' | 'Planner'
 }) => {
-  const [unitData, setUnitData] = useState<InitialData>(initialData)
+  const [unitData, setUnitData] = useState<InitialData[]>(
+    initialData as InitialData[]
+  )
 
   const toggleVisibility = (unitId: UnitName) => {
     const updatedUnitData = unitData.map((unit) => {
@@ -69,15 +106,76 @@ export const TeamPlanner = ({
     return true
   }
 
+  const addUnitData = (unitName: UnitName, jobName: JobName) => {
+    const updatedData = unitData.map((unit) => {
+      if (unit.id === unitName) {
+        const index = unit.data.length - 1
+        const updatedData = { ...unit.data[index], LV: 1, JOB: jobName }
+
+        return { ...unit, data: [...unit.data, updatedData] }
+      }
+      return unit
+    })
+    setUnitData(updatedData)
+  }
+
+  const updateUnitData = (
+    unitName: UnitName,
+    jobName: JobName,
+    lv: number,
+    exp: number
+  ) => {
+    const updatedData = unitData.map((unit) => {
+      if (unit.id === unitName) {
+        const index = unit.data.length - 1
+        const targetData = unit.data[index]
+        const lvChange = lv - targetData.LV
+        const spChange = exp - targetData.EXP + targetData.SP
+
+        const updatedStats = useLevelUp(
+          unitName,
+          jobName,
+          targetData.STATS,
+          lvChange
+        )
+        const updatedData = {
+          JOB: jobName,
+          LV: lv,
+          EXP: exp,
+          SP: spChange,
+          STATS: updatedStats,
+        }
+        return { ...unit, data: [...unit.data.slice(0, index), updatedData] }
+      }
+      return unit
+    })
+    setUnitData(updatedData)
+  }
+  const removeUnitData = (unitName: UnitName) => {
+    const updatedData = unitData.map((unit) => {
+      if (unit.id === unitName) {
+        return { ...unit, data: unit.data.slice(0, -1) }
+      }
+      return unit
+    })
+    setUnitData(updatedData)
+  }
+
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div>
       {mode === 'Planner' && (
         <>
-          <FilterPanel>
+          <button
+            className={'filter-button'}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            Filters
+          </button>
+          <FilterPanel isOpen={isOpen}>
             {objectKeys(UNIT_ORIGIN).map((country) => (
-              <div
-                style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}
-              >
+              <div key={`${country}-col`} className='filter-column'>
                 <FilterItem
                   key={country}
                   title={country}
@@ -88,26 +186,45 @@ export const TeamPlanner = ({
                 >
                   {country}
                 </FilterItem>
-                {unitDataByCountry(country).map(({ id, isVisible }) => (
-                  <FilterItem
-                    key={id}
-                    title={id}
-                    onCheckedChange={() => toggleVisibility(id)}
-                    checked={isVisible}
-                  >
-                    {UNIT_NAME[id]}
-                  </FilterItem>
-                ))}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    // gap: '8px',
+                    // padding: '0px 0px 25px 0px',
+                  }}
+                >
+                  {unitDataByCountry(country).map(({ id, isVisible }) => (
+                    <FilterItem
+                      key={id}
+                      title={id}
+                      onCheckedChange={() => toggleVisibility(id)}
+                      checked={isVisible}
+                    >
+                      {UNIT_NAME[id]}
+                    </FilterItem>
+                  ))}
+                </div>
               </div>
             ))}
           </FilterPanel>
           <GraphDisplay />
           <div>
-            {/* {unitData.map(({ isVisible, id, data }) => {
+            {unitData.map(({ isVisible, id, data }) => {
               if (isVisible) {
-                return <ExpSlider unit={id} unitData={data} />
+                return (
+                  <ExpSlider
+                    key={id}
+                    unit={id}
+                    unitData={data}
+                    updateUnitData={updateUnitData}
+                    removeUnitData={removeUnitData}
+                    addUnitData={addUnitData}
+                  />
+                )
               }
-            })} */}
+            })}
           </div>
         </>
       )}
