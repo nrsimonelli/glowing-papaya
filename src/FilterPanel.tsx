@@ -3,13 +3,21 @@ import { CheckIcon, MinusIcon } from '@radix-ui/react-icons'
 import { ReactNode, useState } from 'react'
 import React from 'react'
 
-export const FilterPanel = ({ children }: { children: ReactNode }) => {
-  const [isOpen, setIsOpen] = useState(true)
-
+export const FilterPanel = ({
+  isOpen,
+  children,
+}: {
+  isOpen: boolean
+  children: ReactNode
+}) => {
   return (
-    <div>
-      <button onClick={() => setIsOpen(!isOpen)}>Filters</button>
-      <div data-state={isOpen ? 'expanded' : 'collapsed'}>{children}</div>
+    <div className='filter-container'>
+      <div
+        className={'filter-content'}
+        data-state={isOpen ? 'expanded' : 'collapsed'}
+      >
+        {children}
+      </div>
     </div>
   )
 }
@@ -19,11 +27,11 @@ export const FilterItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Checkbox.Root>
 >(({ title, children, ...props }, forwardedRef) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
+    <div className='filter-item'>
       <Checkbox.Root
         id={title}
-        className='CheckboxRoot'
         ref={forwardedRef}
+        className='CheckboxRoot'
         {...props}
       >
         <Checkbox.Indicator className='CheckboxIndicator'>
