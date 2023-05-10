@@ -9,6 +9,7 @@ export const Mode = ({
     React.SetStateAction<'Overview' | 'Favorites' | 'Planner'>
   >
 }) => {
+  const options = ['Overview', 'Favorites', 'Planner']
   return (
     <Toggle
       type={'single'}
@@ -17,9 +18,15 @@ export const Mode = ({
         if (value) setMode(value)
       }}
     >
-      <ToggleOption value={'Overview'}>Overview</ToggleOption>
-      <ToggleOption value={'Favorites'}>Favorites</ToggleOption>
-      <ToggleOption value={'Planner'}>Planner</ToggleOption>
+      {options.map((option) => (
+        <ToggleOption
+          key={option}
+          value={option}
+          data-state={mode === option ? 'on' : 'off'}
+        >
+          {option}
+        </ToggleOption>
+      ))}
     </Toggle>
   )
 }
