@@ -2,22 +2,15 @@ import { Slider } from './components/Slider'
 import { Image } from './components/Image'
 import { MasterSeal } from './MasterSeal'
 import { SecondSeal } from './SecondSeal'
-import {
-  JobName,
-  StatKey,
-  UnitName,
-  initialValues,
-  objectEntries,
-  objectKeys,
-} from './utils/types'
-import { useEffect, useState } from 'react'
-import { useCharacterData } from './utils/useCharacterData'
+import { JobName, UnitName, objectKeys } from './utils/types'
+import { useState } from 'react'
 import { UnitData } from './TeamPlanner'
 import { JOB_GROUP } from './constants'
 import { MinusCircledIcon, PlusCircledIcon } from '@radix-ui/react-icons'
 
 interface ExpSliderProps {
   unit: UnitName
+  base: UnitData
   unitData: UnitData[]
   updateUnitData: (
     unitName: UnitName,
@@ -31,21 +24,20 @@ interface ExpSliderProps {
 
 export const ExpSlider = ({
   unit,
+  base,
   unitData,
   updateUnitData,
   removeUnitData,
   addUnitData,
 }: ExpSliderProps) => {
-  const { EXP, JOB, LV, STATS } = unitData[unitData.length - 1]
+  const { EXP, JOB, LV } = unitData[0]
   const [baseExp, setBaseExp] = useState(EXP)
   const [baseLv, setBaseLv] = useState(LV)
   const [currentExp, setCurrentExp] = useState(EXP)
   const [currentJob, setCurrentJob] = useState<JobName>(JOB)
   const [currentLevel, setCurrentLevel] = useState(LV)
-  const { combinedGrowth: growthRate, personalCap: statCap } = useCharacterData(
-    unit,
-    currentJob
-  )
+
+  const [sliderValues, setSliderValues] = useState([base.EXP, EXP])
 
   const isSpecial = objectKeys(JOB_GROUP.SPECIAL).some(
     (job) => job === currentJob
@@ -56,7 +48,7 @@ export const ExpSlider = ({
   const isBase = objectKeys(JOB_GROUP.BASE).some((job) => job === currentJob)
   const levelCap = isSpecial ? 40 : 20
   const expCap = (levelCap - baseLv) * 100 + baseExp
-  const canRemoveData = unitData.length > 1
+  const canRemoveData = unitData.length >= 2
 
   const updateExp = (value: number) => {
     const updatedExp =
@@ -65,28 +57,49 @@ export const ExpSlider = ({
 
     if (currentLevel !== updatedLevel) {
       setCurrentExp(updatedExp)
+      setSliderValues([...sliderValues.slice(0, -1), updatedExp])
       setCurrentLevel(updatedLevel)
       updateUnitData(unit, currentJob, updatedLevel, updatedExp)
     } else {
+      setSliderValues([...sliderValues.slice(0, -1), updatedExp])
       setCurrentExp(updatedExp)
     }
   }
 
   const handleJobChange = (selectedJob: JobName) => {
+    console.log(sliderValues)
+    const sliderCopy = [...sliderValues]
+    sliderCopy.splice(
+      sliderValues.length - 1,
+      0,
+      Math.floor(currentExp / 100) * 100
+    )
     setCurrentLevel(1)
     setBaseLv(1)
     setBaseExp(Math.floor(currentExp / 100) * 100)
+    setSliderValues(sliderCopy)
     setCurrentJob(selectedJob)
     addUnitData(unit, selectedJob)
   }
 
-  useEffect(() => {
-    console.log('BASEEXP', baseExp)
-    console.log('BASELV', baseLv)
-  }, [baseExp, baseLv])
+  const handleUndoChange = () => {
+    const previousData = unitData[unitData.length - 2]
+    const previoiusBaseExp =
+      unitData.length >= 3
+        ? Math.floor(previousData.EXP / 100) * 100 - previousData.LV * 100 + 100
+        : base.EXP
+    setCurrentJob(previousData.JOB)
+    setCurrentExp(previousData.EXP)
+    setBaseExp(previoiusBaseExp)
+    setCurrentLevel(previousData.LV)
+    setBaseLv(unitData.length >= 3 ? 1 : base.LV)
+    setSliderValues((prevValues) => prevValues.slice(0, -1))
+    removeUnitData(unit)
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', padding: 20 }}>
+      {JSON.stringify(unitData)}
       <div style={{ display: 'flex' }}>
         <SecondSeal
           unit={unit}
@@ -99,6 +112,12 @@ export const ExpSlider = ({
           handleJobChange={handleJobChange}
           disabled={isBase ? currentLevel < 10 : true}
         />
+        <button
+          disabled={unitData.length === 1 || currentExp !== baseExp}
+          onClick={handleUndoChange}
+        >
+          Undo
+        </button>
       </div>
       <div>
         EXP: {currentExp}
@@ -125,9 +144,9 @@ export const ExpSlider = ({
       <Slider
         min={0}
         max={6000}
-        value={[baseExp, currentExp]}
+        value={sliderValues}
         step={1}
-        onValueChange={(val) => updateExp(val[1])}
+        onValueChange={(val) => updateExp(val[val.length - 1])}
       >
         <Image className='slider-image' name={unit} />
       </Slider>

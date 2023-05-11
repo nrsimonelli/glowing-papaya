@@ -17,11 +17,8 @@ export const Slider = React.forwardRef<
         <SliderPrimitive.Range className={'slider-range'} />
       </SliderPrimitive.Track>
       {value?.map((_, i) => (
-        <SliderPrimitive.SliderThumb
-          className={`slider-thumb ${i === 0 ? 'base' : 'invest'}`}
-          key={i}
-        >
-          {i === 1 && props.children}
+        <SliderPrimitive.SliderThumb className={`slider-thumb`} key={i}>
+          {props.children}
         </SliderPrimitive.SliderThumb>
       ))}
     </SliderPrimitive.Slider>

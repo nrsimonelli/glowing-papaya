@@ -211,12 +211,13 @@ export const TeamPlanner = ({
           </FilterPanel>
           <GraphDisplay />
           <div>
-            {unitData.map(({ isVisible, id, data }) => {
+            {unitData.map(({ isVisible, id, data, base }) => {
               if (isVisible) {
                 return (
                   <ExpSlider
                     key={id}
                     unit={id}
+                    base={base}
                     unitData={data}
                     updateUnitData={updateUnitData}
                     removeUnitData={removeUnitData}
