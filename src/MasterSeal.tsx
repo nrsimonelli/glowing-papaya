@@ -5,7 +5,8 @@ import {
   DropdownMenuItem,
 } from '@radix-ui/react-dropdown-menu'
 import { JobName, UnitName, objectEntries } from './utils/types'
-import { JOB_GROUP, JOB_NAME } from './constants'
+import { JOB_GROUP } from './constants'
+import { getDisplayName } from './utils/getDisplayName'
 
 export const MasterSeal = ({
   unit,
@@ -30,7 +31,7 @@ export const MasterSeal = ({
                 className={'DropdownMenuItem'}
                 onSelect={() => handleJobChange(key)}
               >
-                {JOB_NAME[key]}
+                {getDisplayName(key)}
               </DropdownMenuItem>
             )
           }

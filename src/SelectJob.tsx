@@ -1,7 +1,8 @@
 import { SelectGroup, SelectLabel } from '@radix-ui/react-select'
 import { Select, SelectItem } from './components/Select'
-import { JOB_NAME, JOB_GROUP, UNIT_NAME } from './constants'
+import { JOB_GROUP, UNIT_NAME } from './constants'
 import { JobName, UnitName, objectEntries } from './utils/types'
+import { getDisplayName } from './utils/getDisplayName'
 
 interface SelectJobProps {
   value: string
@@ -27,7 +28,7 @@ export const SelectJob = ({
             if (!isExclusive) {
               return (
                 <SelectItem key={key} value={key}>
-                  {JOB_NAME[key]}
+                  {getDisplayName(key)}
                 </SelectItem>
               )
             }
@@ -37,7 +38,7 @@ export const SelectJob = ({
             ) {
               return (
                 <SelectItem key={key} value={key}>
-                  {JOB_NAME[key]}
+                  {getDisplayName(key)}
                 </SelectItem>
               )
             }

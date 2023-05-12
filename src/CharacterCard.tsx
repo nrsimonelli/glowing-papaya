@@ -1,7 +1,8 @@
 import { CrossCircledIcon } from '@radix-ui/react-icons'
 import { Image } from './components/Image'
-import { JOB_NAME, MAX_STAT, STAT_KEY } from './constants'
+import { MAX_STAT, STAT_KEY } from './constants'
 import { CharacterDetail, MinMaxObj, StatKey } from './utils/types'
+import { getDisplayName } from './utils/getDisplayName'
 
 export const CharacterCard = ({
   character,
@@ -48,7 +49,7 @@ export const CharacterCard = ({
       </div>
       <div className='card-detail'>
         <div className='detail-row'>
-          <div className='detail-class'>{JOB_NAME[JOB]}</div>
+          <div className='detail-class'>{getDisplayName(JOB)}</div>
           <div className='delete' onClick={() => handleDelete(ID)}>
             <CrossCircledIcon className='cross-icon' />
           </div>

@@ -4,8 +4,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from './components/Dropdown'
-import { JobName, UnitName, objectEntries } from './utils/types'
+import { JobName, UnitName, objectEntries, objectKeys } from './utils/types'
 import { JOB_GROUP, JOB_NAME } from './constants'
+import { getDisplayName } from './utils/getDisplayName'
 
 export const SecondSeal = ({
   unit,
@@ -24,43 +25,22 @@ export const SecondSeal = ({
         Second Seal
       </DropdownMenuTrigger>
       <DropdownMenuContent className={'DropdownMenuContent'}>
-        {isAdvanced &&
-          objectEntries(JOB_GROUP.ADVANCED).map(([key, { isExclusive }]) => {
-            if (!isExclusive || isExclusive === unit) {
-              return (
-                <DropdownMenuItem
-                  key={key}
-                  className={'DropdownMenuItem'}
-                  onSelect={() => handleJobChange(key)}
-                >
-                  {JOB_NAME[key]}
-                </DropdownMenuItem>
-              )
-            }
-          })}
-        {objectEntries(JOB_GROUP.BASE).map(([key, { isExclusive }]) => {
-          if (!isExclusive || isExclusive === unit) {
-            return (
-              <DropdownMenuItem
-                key={key}
-                className={'DropdownMenuItem'}
-                onSelect={() => handleJobChange(key)}
-              >
-                {JOB_NAME[key]}
-              </DropdownMenuItem>
-            )
-          }
-        })}
-        {objectEntries(JOB_GROUP.SPECIAL).map(([key, { isExclusive }]) => {
-          if (!isExclusive || isExclusive === unit) {
-            return (
-              <DropdownMenuItem
-                key={key}
-                className={'DropdownMenuItem'}
-                onSelect={() => handleJobChange(key)}
-              >
-                {JOB_NAME[key]}
-              </DropdownMenuItem>
+        {objectKeys(JOB_GROUP).map((jobGroupKey) => {
+          if (isAdvanced || jobGroupKey !== 'ADVANCED') {
+            return objectEntries(JOB_GROUP[jobGroupKey]).map(
+              ([key, { isExclusive }]) => {
+                if (!isExclusive || isExclusive === unit) {
+                  return (
+                    <DropdownMenuItem
+                      key={key}
+                      className={'DropdownMenuItem'}
+                      onSelect={() => handleJobChange(key)}
+                    >
+                      {getDisplayName(key)}
+                    </DropdownMenuItem>
+                  )
+                }
+              }
             )
           }
         })}
