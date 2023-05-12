@@ -1,23 +1,9 @@
 import { useMemo, useState } from 'react'
 import { SelectJob } from './SelectJob'
 import { SelectUnit } from './SelectUnit'
-import {
-  CharacterDetail,
-  JobName,
-  UnitName,
-  initialValues,
-  MinMaxObj,
-  objectEntries,
-} from './utils/types'
+import { CharacterDetail, JobName, UnitName, MinMaxObj } from './utils/types'
 import { CharacterCard } from './CharacterCard'
-import {
-  JOB_GROUP,
-  JOB_GROWTH,
-  JOB_MAX,
-  STAT_KEY,
-  UNIT_GROWTH,
-  UNIT_MOD,
-} from './constants'
+import { STAT_KEY } from './constants'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useCharacterData } from './utils/useCharacterData'
 

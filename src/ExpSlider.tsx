@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { UnitData } from './TeamPlanner'
 import { JOB_GROUP } from './constants'
 import { MinusCircledIcon, PlusCircledIcon } from '@radix-ui/react-icons'
+import { getDisplayName } from './utils/getDisplayName'
 
 interface ExpSliderProps {
   unit: UnitName
@@ -48,7 +49,6 @@ export const ExpSlider = ({
   const isBase = objectKeys(JOB_GROUP.BASE).some((job) => job === currentJob)
   const levelCap = isSpecial ? 40 : 20
   const expCap = (levelCap - baseLv) * 100 + baseExp
-  const canRemoveData = unitData.length >= 2
 
   const updateExp = (value: number) => {
     const updatedExp =
@@ -99,8 +99,7 @@ export const ExpSlider = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', padding: 20 }}>
-      {JSON.stringify(unitData)}
-      <div style={{ display: 'flex' }}>
+      <div>
         <SecondSeal
           unit={unit}
           isAdvanced={isAdvanced}
@@ -119,10 +118,7 @@ export const ExpSlider = ({
           Undo
         </button>
       </div>
-      <div>
-        EXP: {currentExp}
-        LV: {Math.floor((currentExp - baseExp) / 100 + baseLv)}
-      </div>
+      <div>LV: {Math.floor((currentExp - baseExp) / 100 + baseLv)}</div>
       <div
         style={{
           display: 'flex',
@@ -141,15 +137,27 @@ export const ExpSlider = ({
           onClick={() => updateExp(currentExp + 100)}
         />
       </div>
-      <Slider
-        min={0}
-        max={6000}
-        value={sliderValues}
-        step={1}
-        onValueChange={(val) => updateExp(val[val.length - 1])}
+
+      <div
+        style={{
+          display: 'flex',
+          gap: '20px',
+          alignItems: 'center',
+        }}
       >
-        <Image className='slider-image' name={unit} />
-      </Slider>
+        <div>
+          {getDisplayName(unit)}, {getDisplayName(currentJob)}
+        </div>
+        <Slider
+          min={0}
+          max={6000}
+          value={sliderValues}
+          step={1}
+          onValueChange={(val) => updateExp(val[val.length - 1])}
+        >
+          <Image className='slider-image' name={unit} />
+        </Slider>
+      </div>
     </div>
   )
 }

@@ -9,8 +9,8 @@ import {
 import { PERSONAL_BASE, UNIT_NAME, UNIT_ORIGIN } from './constants'
 import { FilterPanel, FilterItem } from './FilterPanel'
 import { ExpSlider } from './ExpSlider'
-import { useCharacterData } from './utils/useCharacterData'
 import { useLevelUp } from './utils/useLevelUp'
+import { getDisplayName } from './utils/getDisplayName'
 
 const uiTest = ['CLANNE', 'FOGADO', 'AMBER']
 
@@ -184,28 +184,18 @@ export const TeamPlanner = ({
                     toggleByCountry(country, filterSectionState(country))
                   }
                 >
-                  {country}
+                  <span className='filter-title'>{country}</span>
                 </FilterItem>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    // gap: '8px',
-                    // padding: '0px 0px 25px 0px',
-                  }}
-                >
-                  {unitDataByCountry(country).map(({ id, isVisible }) => (
-                    <FilterItem
-                      key={id}
-                      title={id}
-                      onCheckedChange={() => toggleVisibility(id)}
-                      checked={isVisible}
-                    >
-                      {UNIT_NAME[id]}
-                    </FilterItem>
-                  ))}
-                </div>
+                {unitDataByCountry(country).map(({ id, isVisible }) => (
+                  <FilterItem
+                    key={id}
+                    title={id}
+                    onCheckedChange={() => toggleVisibility(id)}
+                    checked={isVisible}
+                  >
+                    {getDisplayName(id)}
+                  </FilterItem>
+                ))}
               </div>
             ))}
           </FilterPanel>

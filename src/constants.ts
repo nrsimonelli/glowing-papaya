@@ -3261,5 +3261,5 @@ export const UNIT_ORIGIN = {
     'SEADALL',
   ],
   Gradlon: ['VEYLE', 'MAUVIER'],
-  Xenologue: ['NEL', 'RAFAL', 'ZELESTIA', 'GREGORY', 'MADELINE'],
+  'FX / DLC': ['NEL', 'RAFAL', 'ZELESTIA', 'GREGORY', 'MADELINE'],
 }

@@ -294,7 +294,7 @@
   /* width: 200px; */
   width: 100%;
   height: 20px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .slider-track {
@@ -353,6 +353,8 @@
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 .DropdownMenuContent[data-side='top'],
 .DropdownMenuSubContent[data-side='top'] {
@@ -509,38 +511,41 @@
 
 .CheckboxRow {
 }
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+}
 .filter-content {
   height: 0;
-  /* opacity: 0; */
   transition: height 0.3s ease-in-out;
-  padding-top: 13px;
+  padding-top: 20px;
+  overflow-y: hidden;
   display: flex;
   flex-direction: row;
-  align-items: start;
-  overflow-y: hidden;
+  padding-right: 4px;
+  padding-left: 4px;
 }
-.filter-container {
-  /* border: 1px solid blue; */
-}
-
 .filter-content[data-state='expanded'] {
   /* transform: translateY(0); */
   /* animation-name: slideRightAndFade; */
-  height: 200px;
-  /* opacity: 1; */
-}
-.filter-button {
+  height: 240px;
 }
 .filter-column {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  /* border: 1px solid yellow; */
+  width: 110px;
+  gap: 4px;
 }
 .filter-item {
   display: flex;
   align-items: center;
-  width: 110px;
+}
+.filter-title {
+  font-weight: 700;
+}
+
+.filter-button {
 }
 
 .ExpIcon {
