@@ -1,11 +1,5 @@
 import { useCallback, useState } from 'react'
-import {
-  JobName,
-  StatKey,
-  UnitName,
-  objectEntries,
-  objectKeys,
-} from './utils/types'
+import { JobName, UnitName, objectKeys } from './utils/types'
 import { PERSONAL_BASE, UNIT_NAME, UNIT_ORIGIN } from './constants'
 import { FilterPanel, FilterItem } from './FilterPanel'
 import { ExpSlider } from './ExpSlider'
@@ -200,7 +194,7 @@ export const TeamPlanner = ({
             ))}
           </FilterPanel>
           <GraphDisplay />
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             {unitData.map(({ isVisible, id, data, base }) => {
               if (isVisible) {
                 return (

@@ -346,7 +346,7 @@
 
 .DropdownMenuContent,
 .DropdownMenuSubContent {
-  min-width: 220px;
+  min-width: 200px;
   background-color: var(--ev-solid);
   border-radius: 6px;
   padding: 5px;
@@ -425,9 +425,6 @@
   justify-content: center;
 }
 
-.DropdownMenuArrow {
-  fill: var(--ev-solid);
-}
 .DropdownTrigger {
   /* background: transparent; */
 }
