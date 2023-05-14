@@ -5,31 +5,31 @@ import {
   DropdownMenuItem,
 } from './components/Dropdown'
 import { JobName, UnitName, objectEntries, objectKeys } from './utils/types'
-import { JOB_GROUP, JOB_NAME } from './constants'
+import { JOB_GROUP } from './constants'
 import { getDisplayName } from './utils/getDisplayName'
 
-export const SecondSeal = ({
+export const JobChangeDropdown = ({
   unit,
-  isAdvanced,
+  mapAdvanced,
   disabled,
   handleJobChange,
 }: {
   unit: UnitName
-  isAdvanced: boolean
+  mapAdvanced: boolean
   disabled: boolean
   handleJobChange: (arg: JobName) => void
 }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={'DropdownTrigger'} disabled={disabled}>
-        Second Seal
+        Change Class
       </DropdownMenuTrigger>
       <DropdownMenuContent className={'DropdownMenuContent'}>
         {objectKeys(JOB_GROUP).map((jobGroupKey) => {
-          if (isAdvanced || jobGroupKey !== 'ADVANCED') {
+          if (mapAdvanced || jobGroupKey !== 'ADVANCED') {
             return objectEntries(JOB_GROUP[jobGroupKey]).map(
               ([key, { isExclusive }]) => {
-                if (!isExclusive || isExclusive === unit) {
+                if (!isExclusive || isExclusive === getDisplayName(unit)) {
                   return (
                     <DropdownMenuItem
                       key={key}

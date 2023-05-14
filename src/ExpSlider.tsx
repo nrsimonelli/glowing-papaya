@@ -1,7 +1,6 @@
 import { Slider } from './components/Slider'
 import { Image } from './components/Image'
-import { MasterSeal } from './MasterSeal'
-import { SecondSeal } from './SecondSeal'
+import { JobChangeDropdown } from './JobChangeDropdown'
 import { JobName, UnitName, objectKeys } from './utils/types'
 import { useState } from 'react'
 import { UnitData } from './TeamPlanner'
@@ -98,54 +97,65 @@ export const ExpSlider = ({
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', padding: 20 }}>
-      <div>
-        <SecondSeal
-          unit={unit}
-          isAdvanced={isAdvanced}
-          handleJobChange={handleJobChange}
-          disabled={false}
-        />
-        <MasterSeal
-          unit={unit}
-          handleJobChange={handleJobChange}
-          disabled={isBase ? currentLevel < 10 : true}
-        />
-        <button
-          disabled={unitData.length === 1 || currentExp !== baseExp}
-          onClick={handleUndoChange}
-        >
-          Undo
-        </button>
-      </div>
-      <div>LV: {Math.floor((currentExp - baseExp) / 100 + baseLv)}</div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div
         style={{
           display: 'flex',
-          justifyContent: 'center',
+          flexDirection: 'row',
+          justifyContent: 'end',
           alignItems: 'center',
-          gap: '8px',
+          gap: 20,
         }}
       >
-        <MinusCircledIcon
-          className={'ExpIcon'}
-          onClick={() => updateExp(currentExp - 100)}
-        />
-        <div>{currentExp}</div>
-        <PlusCircledIcon
-          className={'ExpIcon'}
-          onClick={() => updateExp(currentExp + 100)}
-        />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div>LV: {Math.floor((currentExp - baseExp) / 100 + baseLv)}</div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 10,
+            }}
+          >
+            <MinusCircledIcon
+              className={'ExpIcon'}
+              onClick={() => updateExp(currentExp - 100)}
+            />
+            <div>{currentExp}</div>
+            <PlusCircledIcon
+              className={'ExpIcon'}
+              onClick={() => updateExp(currentExp + 100)}
+            />
+          </div>
+        </div>
+        <div>
+          <JobChangeDropdown
+            unit={unit}
+            mapAdvanced={
+              isAdvanced || isBase ? currentLevel > 9 : currentLevel > 20
+            }
+            handleJobChange={handleJobChange}
+            disabled={false}
+          />
+          <button
+            disabled={unitData.length === 1 || currentExp !== baseExp}
+            onClick={handleUndoChange}
+          >
+            Undo
+          </button>
+        </div>
       </div>
 
       <div
         style={{
           display: 'flex',
-          gap: '20px',
+          gap: 10,
           alignItems: 'center',
         }}
       >
-        <div>
+        <div style={{ flex: '1 0 120px' }}>
           {getDisplayName(unit)}, {getDisplayName(currentJob)}
         </div>
         <Slider
