@@ -1,14 +1,15 @@
-import { useCallback, useState } from 'react'
-import { JobName, UnitName, objectKeys } from './utils/types'
-import { PERSONAL_BASE, UNIT_NAME, UNIT_ORIGIN } from './constants'
+import { useState } from 'react'
+import { JobName, StatKey, UnitName, objectKeys } from './utils/types'
+import { PERSONAL_BASE, STAT_KEY, UNIT_NAME, UNIT_ORIGIN } from './constants'
 import { FilterPanel, FilterItem } from './FilterPanel'
 import { ExpSlider } from './ExpSlider'
 import { useLevelUp } from './utils/useLevelUp'
 import { getDisplayName } from './utils/getDisplayName'
+import { GraphDisplay } from './GraphDisplay'
 
 const uiTest = ['CLANNE', 'FOGADO', 'AMBER']
 
-const initialData = objectKeys(UNIT_NAME).map((unit) => ({
+const initialUnitData = objectKeys(UNIT_NAME).map((unit) => ({
   id: unit,
   isVisible: uiTest.some((x) => x === unit),
   base: PERSONAL_BASE[unit],
@@ -33,24 +34,28 @@ export type UnitData = {
   }
 }
 
-type InitialData = {
+export type InitialUnitData = {
   id: UnitName
   isVisible: boolean
   base: UnitData
   data: UnitData[]
 }
 
-const GraphDisplay = () => {
-  return <div>Graph</div>
-}
+export type InitialStatData = { id: StatKey; isVisible: boolean }
+const initialStatData = [
+  ...STAT_KEY.map((stat) => ({ id: stat, isVisible: true })),
+]
 
 export const TeamPlanner = ({
   mode,
 }: {
   mode: 'Overview' | 'Favorites' | 'Planner'
 }) => {
-  const [unitData, setUnitData] = useState<InitialData[]>(
-    initialData as InitialData[]
+  const [unitData, setUnitData] = useState<InitialUnitData[]>(
+    initialUnitData as InitialUnitData[]
+  )
+  const [statData, setStatData] = useState<InitialStatData[]>(
+    initialStatData as InitialStatData[]
   )
 
   const toggleVisibility = (unitId: UnitName) => {
@@ -61,6 +66,16 @@ export const TeamPlanner = ({
       return unit
     })
     setUnitData(updatedUnitData)
+  }
+
+  const toggleStatData = (statId: StatKey) => {
+    const updatedStatData = statData.map((stat) => {
+      if (statId === stat.id) {
+        return { ...stat, isVisible: !stat.isVisible }
+      }
+      return stat
+    })
+    setStatData(updatedStatData)
   }
 
   const toggleByCountry = (
@@ -157,6 +172,19 @@ export const TeamPlanner = ({
 
   const [isOpen, setIsOpen] = useState(false)
 
+  const StatName = {
+    HP: 'HP',
+    STR: 'Strength',
+    MAG: 'Magic',
+    DEX: 'Dexterity',
+    SPD: 'Speed',
+    DEF: 'Defense',
+    RES: 'Resistance',
+    LCK: 'Luck',
+    BLD: 'Build',
+    BST: 'Rating',
+  }
+
   return (
     <div>
       {mode === 'Planner' && (
@@ -167,33 +195,65 @@ export const TeamPlanner = ({
           >
             Filters
           </button>
+          <button className={'filter-button'} onClick={() => {}}>
+            Normalize
+          </button>
           <FilterPanel isOpen={isOpen}>
-            {objectKeys(UNIT_ORIGIN).map((country) => (
-              <div key={`${country}-col`} className='filter-column'>
-                <FilterItem
-                  key={country}
-                  title={country}
-                  checked={filterSectionState(country)}
-                  onCheckedChange={() =>
-                    toggleByCountry(country, filterSectionState(country))
-                  }
-                >
-                  <span className='filter-title'>{country}</span>
-                </FilterItem>
-                {unitDataByCountry(country).map(({ id, isVisible }) => (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                // border: '1px solid yellow',
+              }}
+            >
+              {objectKeys(UNIT_ORIGIN).map((country) => (
+                <div key={`${country}-col`} className='filter-column'>
+                  <FilterItem
+                    key={country}
+                    title={country}
+                    checked={filterSectionState(country)}
+                    onCheckedChange={() =>
+                      toggleByCountry(country, filterSectionState(country))
+                    }
+                  >
+                    <span className='filter-title'>{country}</span>
+                  </FilterItem>
+                  {unitDataByCountry(country).map(({ id, isVisible }) => (
+                    <FilterItem
+                      key={id}
+                      title={id}
+                      onCheckedChange={() => toggleVisibility(id)}
+                      checked={isVisible}
+                    >
+                      {getDisplayName(id)}
+                    </FilterItem>
+                  ))}
+                </div>
+              ))}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '13px',
+                  // border: '1px solid blue',
+                }}
+              >
+                {statData.map(({ id, isVisible }) => (
                   <FilterItem
                     key={id}
                     title={id}
-                    onCheckedChange={() => toggleVisibility(id)}
+                    onCheckedChange={() => toggleStatData(id)}
                     checked={isVisible}
                   >
-                    {getDisplayName(id)}
+                    {StatName[id]}
                   </FilterItem>
                 ))}
               </div>
-            ))}
+            </div>
           </FilterPanel>
-          <GraphDisplay />
+          <GraphDisplay unitData={unitData} statList={statData} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             {unitData.map(({ isVisible, id, data, base }) => {
               if (isVisible) {

@@ -66,7 +66,7 @@ export const ExpSlider = ({
   }
 
   const handleJobChange = (selectedJob: JobName) => {
-    console.log(sliderValues)
+    // console.log(sliderValues)
     const sliderCopy = [...sliderValues]
     sliderCopy.splice(
       sliderValues.length - 1,
