@@ -2970,7 +2970,7 @@ export const PERSONAL_BASE = {
     },
   },
   MAUVIER: {
-    LV: 32,
+    LV: 12,
     EXP: 3100,
     SP: 2500,
     JOB: 'ROYAL_KNIGHT',
