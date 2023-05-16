@@ -522,6 +522,7 @@
   /* transform: translateY(0); */
   /* animation-name: slideRightAndFade; */
   height: 260px;
+  padding-bottom: 20px;
 }
 .filter-column {
   display: flex;

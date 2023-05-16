@@ -1,18 +1,17 @@
 :root {
-  --bg: #1a1a1a;
-  --ev-solid: #2a2a2a;
-  --ev1: rgba(255, 255, 255, 0.07);
-  --ev2: rgba(255, 255, 255, 0.09);
-  --ev3: rgba(255, 255, 255, 0.12);
-  --ev4: rgba(255, 255, 255, 0.15);
-  --text: rgba(255, 255, 255, 0.87);
-  --disabled: #75747a;
-  /* --button: #1a1a1a; */
-  --accent1: #646cff;
-  --accent2: #535bf2;
-  --top: rgb(46, 200, 238);
+  --bg: hsl(0, 0%, 10%);
+  --ev-solid: hsl(0, 0%, 16%);
+  --ev1: hsla(0, 0%, 100%, 0.07);
+  --ev2: hsla(0, 0%, 100%, 0.09);
+  --ev3: hsla(0, 0%, 100%, 0.12);
+  --ev4: hsla(0, 0%, 100%, 0.15);
+  --text: hsla(0, 0%, 100%, 0.87);
+  --disabled: hsl(250, 3%, 47%);
+  --accent1: hsl(237, 100%, 70%);
+  --accent2: hsl(237, 86%, 64%);
+  --top: hsl(192, 85%, 56%);
   --positive: rgb(76, 195, 138);
-  --negative: rgb(255, 99, 105);
+  --negative: hsl(358, 100%, 69%);
 
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
