@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import { JobName, StatKey, UnitName, objectKeys } from './utils/types'
-import { PERSONAL_BASE, STAT_KEY, UNIT_NAME, UNIT_ORIGIN } from './constants'
+import {
+  JOB_GROUP,
+  PERSONAL_BASE,
+  STAT_KEY,
+  UNIT_NAME,
+  UNIT_ORIGIN,
+} from './constants'
 import { FilterPanel, FilterItem } from './FilterPanel'
 import { ExpSlider } from './ExpSlider'
 import { useLevelUp } from './utils/useLevelUp'
@@ -11,7 +17,7 @@ const uiTest = ['CLANNE', 'FOGADO', 'AMBER']
 
 const initialUnitData = objectKeys(UNIT_NAME).map((unit) => ({
   id: unit,
-  isVisible: uiTest.some((x) => x === unit),
+  isVisible: Boolean(Math.round(Math.random())),
   base: PERSONAL_BASE[unit],
   data: [PERSONAL_BASE[unit]],
 }))
@@ -43,8 +49,62 @@ export type InitialUnitData = {
 
 export type InitialStatData = { id: StatKey; isVisible: boolean }
 const initialStatData = [
-  ...STAT_KEY.map((stat) => ({ id: stat, isVisible: true })),
+  ...STAT_KEY.map((stat, index) => ({ id: stat, isVisible: index % 2 !== 0 })),
 ]
+
+/*/ 
+  -------------
+  |STR|DEF| HP|
+  -------------
+  |BLD|DEX|RES|
+  -------------
+  |SPD|LCK|MAG|
+  -------------
+
+/*/
+
+export const StatName = {
+  HP: {
+    label: 'HP',
+    color: '#1444ED',
+  },
+  STR: {
+    label: 'Strength',
+    color: '#6752FF',
+  },
+  MAG: {
+    label: 'Magic',
+    color: '#8B59FF',
+  },
+  DEX: {
+    label: 'Dexterity',
+    color: '#1B6BED',
+  },
+  SPD: {
+    label: 'Speed',
+    color: '#8881FF',
+  },
+  DEF: {
+    label: 'Defense',
+    color: '#B78DFF',
+  },
+  RES: {
+    label: 'Resistance',
+    color: '#209FED',
+  },
+  LCK: {
+    label: 'Luck',
+    color: '#A0BFFF',
+  },
+  BLD: {
+    label: 'Build',
+    color: '#D7D1FF',
+  },
+  BST: {
+    label: 'Rating',
+    color: '#DFCA62',
+  },
+}
 
 export const TeamPlanner = ({
   mode,
@@ -160,6 +220,7 @@ export const TeamPlanner = ({
     })
     setUnitData(updatedData)
   }
+
   const removeUnitData = (unitName: UnitName) => {
     const updatedData = unitData.map((unit) => {
       if (unit.id === unitName) {
@@ -172,18 +233,115 @@ export const TeamPlanner = ({
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const StatName = {
-    HP: 'HP',
-    STR: 'Strength',
-    MAG: 'Magic',
-    DEX: 'Dexterity',
-    SPD: 'Speed',
-    DEF: 'Defense',
-    RES: 'Resistance',
-    LCK: 'Luck',
-    BLD: 'Build',
-    BST: 'Rating',
+  const resetUnitData = () => {
+    const updatedUnitData = unitData.map((unit) => {
+      if (!unit.isVisible) {
+        return unit
+      }
+      return { ...unit, data: [unit.base] }
+    })
+    setUnitData(updatedUnitData)
   }
+
+  const normalizeUnitData = () => {
+    const leadExpValue = unitData.reduce((acc, entry) => {
+      const index = entry.data.length - 1
+      if (entry.isVisible && entry.data[index].EXP > acc) {
+        return (acc = entry.data[index].EXP)
+      }
+      return acc
+    }, 0)
+
+    const updatedData = unitData.map((unit) => {
+      const index = unit.data.length - 1
+      const current = unit.data[index]
+
+      if (!unit.isVisible || current.EXP === leadExpValue) {
+        return unit
+      }
+
+      const lvCap = objectKeys(JOB_GROUP.SPECIAL).some(
+        (job) => job === current.JOB
+      )
+        ? 40
+        : 20
+      const expCap = (lvCap - current.LV) * 100 + current.EXP
+
+      if (expCap >= leadExpValue) {
+        const lvChange = Math.floor((leadExpValue - current.EXP) / 100)
+        const updatedStats = useLevelUp(
+          unit.id,
+          current.JOB,
+          current.STATS,
+          lvChange
+        )
+        const boostedData = {
+          JOB: current.JOB,
+          LV: current.LV + lvChange,
+          EXP: leadExpValue,
+          SP: leadExpValue - current.EXP + current.SP,
+          STATS: updatedStats,
+        }
+        return { ...unit, data: [...unit.data.slice(0, index), boostedData] }
+      }
+
+      const numberOfPromotionsNeeded =
+        Math.ceil((leadExpValue - expCap) / (lvCap * 100)) + 1
+      const promotionData = []
+
+      for (let i = 0; i < numberOfPromotionsNeeded; i++) {
+        const runningData: UnitData = promotionData.length
+          ? promotionData[promotionData.length - 1]
+          : current
+        if (!promotionData.length) {
+          const updatedStats = useLevelUp(
+            unit.id,
+            runningData.JOB,
+            runningData.STATS,
+            lvCap - runningData.LV
+          )
+          promotionData.push({
+            JOB: runningData.JOB,
+            LV: lvCap,
+            EXP: expCap,
+            SP: expCap - runningData.EXP + runningData.SP,
+            STATS: updatedStats,
+          })
+        } else {
+          const expTarget =
+            leadExpValue <= (lvCap - 1) * 100 + runningData.EXP
+              ? leadExpValue
+              : (lvCap - 1) * 100 + runningData.EXP
+          const lvTarget = Math.floor((expTarget - runningData.EXP) / 100) + 1
+          const nextStats = useLevelUp(
+            unit.id,
+            runningData.JOB,
+            runningData.STATS,
+            lvTarget - 1
+          )
+
+          promotionData.push({
+            JOB: runningData.JOB,
+            LV: lvTarget,
+            EXP: expTarget,
+            SP: expTarget - runningData.EXP + runningData.SP,
+            STATS: nextStats,
+          })
+        }
+      }
+      return { ...unit, data: [...unit.data.slice(0, index), ...promotionData] }
+    })
+    setUnitData(updatedData)
+  }
+
+  const visibleUnits = unitData.filter((unit) => unit.isVisible)
+  const showReset =
+    visibleUnits.length > 0 &&
+    visibleUnits.every(
+      (entry) =>
+        entry.data[entry.data.length - 1].EXP ===
+        visibleUnits[0].data[visibleUnits[0].data.length - 1].EXP
+    )
 
   return (
     <div>
@@ -195,9 +353,15 @@ export const TeamPlanner = ({
           >
             Filters
           </button>
-          <button className={'filter-button'} onClick={() => {}}>
-            Normalize
-          </button>
+          {showReset ? (
+            <button className={'filter-button'} onClick={resetUnitData}>
+              Reset
+            </button>
+          ) : (
+            <button className={'filter-button'} onClick={normalizeUnitData}>
+              Normalize
+            </button>
+          )}
           <FilterPanel isOpen={isOpen}>
             <div
               style={{
@@ -205,6 +369,7 @@ export const TeamPlanner = ({
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
+                maxWidth: 800,
                 // border: '1px solid yellow',
               }}
             >
@@ -247,14 +412,21 @@ export const TeamPlanner = ({
                     onCheckedChange={() => toggleStatData(id)}
                     checked={isVisible}
                   >
-                    {StatName[id]}
+                    {StatName[id].label}
                   </FilterItem>
                 ))}
               </div>
             </div>
           </FilterPanel>
           <GraphDisplay unitData={unitData} statList={statData} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 40,
+              paddingTop: 20,
+            }}
+          >
             {unitData.map(({ isVisible, id, data, base }) => {
               if (isVisible) {
                 return (
