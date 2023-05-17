@@ -126,6 +126,11 @@ export const GraphDisplay = ({
         <YAxis
           yAxisId={'stats'}
           stroke='hsl(250, 3%, 47%)'
+          // label={{
+          //   value: 'personal base stats',
+          //   position: 'insideLeft',
+          //   angle: '-90',
+          // }}
           fontSize={13}
           tickLine={false}
           axisLine={false}
@@ -135,6 +140,11 @@ export const GraphDisplay = ({
           orientation='right'
           domain={[0, 6000]}
           stroke='hsl(250, 3%, 47%)'
+          // label={{
+          //   value: 'experience points',
+          //   position: 'insideRight',
+          //   angle: '-90',
+          // }}
           fontSize={13}
           tickLine={false}
           axisLine={false}
