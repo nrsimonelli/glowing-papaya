@@ -4,8 +4,10 @@
   margin: 0 auto;
   padding: 32px;
   text-align: left;
+  min-height: 100vh;
 }
 .app-root {
+  min-width: 650px;
   /* display: flex;
   flex-direction: column;
   justify-content: start;
@@ -158,6 +160,7 @@
 
 /* DISPLAY CARD */
 .card-root {
+  position: relative;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -234,18 +237,24 @@
   display: flex;
 }
 .delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  height: 16px;
+  width: 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  /* outline: 2px auto; */
   cursor: pointer;
-  padding-left: 8px;
+  padding: 2px;
 }
-/* reveal on hover? */
-.cross-icon {
-  display: none;
-  /* display: flex; */
+.delete-icon {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-.card-root:hover .cross-icon {
-  display: flex;
+.card-root:hover .delete-icon {
+  opacity: 1;
 }
 
 /* CHARACTER DISPLAY */

@@ -1,4 +1,4 @@
-import { CrossCircledIcon } from '@radix-ui/react-icons'
+import { TrashIcon } from '@radix-ui/react-icons'
 import { Image } from './components/Image'
 import { MAX_STAT, STAT_KEY } from './constants'
 import { CharacterDetail, MinMaxObj, StatKey } from './utils/types'
@@ -47,12 +47,12 @@ export const CharacterCard = ({
       <div className='card-image'>
         <Image className='square' name={UNIT} />
       </div>
+      <div className='delete' onClick={() => handleDelete(ID)}>
+        <TrashIcon className='delete-icon' />
+      </div>
       <div className='card-detail'>
         <div className='detail-row'>
           <div className='detail-class'>{getDisplayName(JOB)}</div>
-          <div className='delete' onClick={() => handleDelete(ID)}>
-            <CrossCircledIcon className='cross-icon' />
-          </div>
         </div>
         {STAT_KEY.map((stat) => (
           <div key={stat} className='detail-row'>

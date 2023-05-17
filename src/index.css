@@ -65,6 +65,9 @@ button {
 button:hover {
   border-color: var(--accent1);
 }
+button:hover:disabled {
+  border-color: transparent;
+}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
