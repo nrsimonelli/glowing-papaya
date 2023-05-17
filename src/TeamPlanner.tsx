@@ -13,14 +13,14 @@ import { useLevelUp } from './utils/useLevelUp'
 import { getDisplayName } from './utils/getDisplayName'
 import { GraphDisplay } from './GraphDisplay'
 
-const uiTest = ['CLANNE', 'FOGADO', 'AMBER']
-
 const initialUnitData = objectKeys(UNIT_NAME).map((unit) => ({
   id: unit,
-  isVisible: Boolean(Math.round(Math.random())),
+  isVisible: !Boolean(Math.round(Math.random() * 2)),
   base: PERSONAL_BASE[unit],
   data: [PERSONAL_BASE[unit]],
 }))
+
+type CountryName = keyof typeof UNIT_ORIGIN
 
 export type UnitData = {
   LV: number
@@ -47,9 +47,13 @@ export type InitialUnitData = {
   data: UnitData[]
 }
 
-export type InitialStatData = { id: StatKey; isVisible: boolean }
+export type InitialStatData = { id: StatKey | 'BST'; isVisible: boolean }
 const initialStatData = [
-  ...STAT_KEY.map((stat, index) => ({ id: stat, isVisible: index % 2 !== 0 })),
+  ...STAT_KEY.map((stat) => ({
+    id: stat,
+    isVisible: Boolean(Math.round(Math.random())),
+  })),
+  { id: 'BST', isVisible: false },
 ]
 
 /*/ 
@@ -60,7 +64,6 @@ const initialStatData = [
   -------------
   |SPD|LCK|MAG|
   -------------
-
 /*/
 
 export const StatName = {
@@ -128,18 +131,44 @@ export const TeamPlanner = ({
     setUnitData(updatedUnitData)
   }
 
-  const toggleStatData = (statId: StatKey) => {
-    const updatedStatData = statData.map((stat) => {
+  const toggleStatData = (statId: StatKey | 'BST') => {
+    let updatedStatData = statData.map((stat) => {
       if (statId === stat.id) {
         return { ...stat, isVisible: !stat.isVisible }
       }
       return stat
     })
+
+    const allStatsVisible = updatedStatData.every((stat) => stat.isVisible)
+    const noStatsVisible = updatedStatData.every((stat) => !stat.isVisible)
+
+    if (statId === 'BST' && (noStatsVisible || allStatsVisible)) {
+      console.log(statId, noStatsVisible, allStatsVisible)
+
+      updatedStatData = updatedStatData.map((stat) => {
+        if (stat.id !== statId) {
+          return { ...stat, isVisible: noStatsVisible }
+        }
+        return stat
+      })
+    }
+
+    if (statId !== 'BST' && (noStatsVisible || allStatsVisible)) {
+      console.log(statId, noStatsVisible, allStatsVisible)
+
+      updatedStatData = updatedStatData.map((stat) => {
+        if (stat.id === 'BST') {
+          return { ...stat, isVisible: noStatsVisible }
+        }
+        return stat
+      })
+    }
+
     setStatData(updatedStatData)
   }
 
   const toggleByCountry = (
-    country: keyof typeof UNIT_ORIGIN,
+    country: CountryName,
     prevState: boolean | 'indeterminate'
   ) => {
     const updatedUnitData = unitData.map((unit) => {
@@ -151,14 +180,14 @@ export const TeamPlanner = ({
     setUnitData(updatedUnitData)
   }
 
-  const unitDataByCountry = (country: keyof typeof UNIT_ORIGIN) => {
+  const unitDataByCountry = (country: CountryName) => {
     const countryRoster = unitData.filter((unit) =>
       UNIT_ORIGIN[country].some((entry) => unit.id === entry)
     )
     return countryRoster
   }
 
-  const filterSectionState = (country: keyof typeof UNIT_ORIGIN) => {
+  const filterSectionState = (country: CountryName) => {
     const atLeastOneTrue = unitDataByCountry(country).some(
       ({ isVisible }) => isVisible === true
     )
@@ -369,8 +398,7 @@ export const TeamPlanner = ({
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
-                maxWidth: 800,
-                // border: '1px solid yellow',
+                maxWidth: 1080,
               }}
             >
               {objectKeys(UNIT_ORIGIN).map((country) => (
@@ -402,7 +430,6 @@ export const TeamPlanner = ({
                   display: 'flex',
                   flexDirection: 'row',
                   gap: '13px',
-                  // border: '1px solid blue',
                 }}
               >
                 {statData.map(({ id, isVisible }) => (
