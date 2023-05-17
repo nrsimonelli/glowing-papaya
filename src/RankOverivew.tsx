@@ -70,21 +70,35 @@ export const RankOverview = ({
           <div className='rank-display-container' ref={parent}>
             {rankOrder.length > 0 &&
               rankOrder.map((rank) => (
-                <div
-                  key={rank.ID}
-                  className='rank-order-container'
-                  onClick={() => updateFavorite(rank.ID, selectedJob)}
-                >
-                  <Image
-                    className={getClassName(`${rank.ID}_${selectedJob}`)}
-                    name={rank.ID}
-                  />
-                  {statList.map((s) => (
-                    <div key={s}>
-                      {s}: {rank[s]}
-                    </div>
-                  ))}
-                  {statList.length > 1 && <div>Total: {rank.RST}</div>}
+                <div key={rank.ID} className='rank-order-container'>
+                  <div
+                    className='anti-flicker'
+                    onClick={() => updateFavorite(rank.ID, selectedJob)}
+                  >
+                    <Image
+                      className={getClassName(`${rank.ID}_${selectedJob}`)}
+                      name={rank.ID}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      height: 'auto',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {statList.map((s) => (
+                      <div className='character-stat-line' key={s}>
+                        <div className='character-stat-label'>{s}:</div>
+                        <div className='character-stat-value'>{rank[s]}</div>
+                      </div>
+                    ))}
+                    {statList.length > 1 && (
+                      <div className='character-stat-line'>
+                        <div className='character-stat-label'>Total:</div>
+                        <div className='character-stat-value'>{rank.RST}</div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
           </div>
