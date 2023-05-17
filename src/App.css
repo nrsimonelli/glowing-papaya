@@ -2,11 +2,13 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 32px;
+  padding-right: 32px;
+  padding-left: 32px;
   text-align: left;
   min-height: 100vh;
 }
 .app-root {
+  padding-top: 64px;
   min-width: 650px;
   /* display: flex;
   flex-direction: column;
@@ -47,7 +49,7 @@
 .option-row {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   gap: 20px;
 }
 .option-col {
@@ -281,6 +283,33 @@
 }
 .rank-image {
   margin-bottom: 4px;
+  will-change: transform;
+  transition: transform 450ms;
+}
+.anti-flicker {
+  cursor: pointer;
+}
+.anti-flicker:hover .rank-image {
+  transition: transform 150ms;
+  transform: translateY(-10px);
+}
+.character-stat-line {
+  /* background: blue; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* gap: 16; */
+  width: 90px;
+}
+.character-stat-label {
+  padding-left: 10px;
+  /* margin-left: 8px; */
+  /* width: 33px; */
+  /* margin-right: 8px; */
+}
+.character-stat-value {
+  padding-right: 10px;
+  /* margin-left: 16px; */
 }
 .gradient-text {
   /* background: linear-gradient(to left, rgb(233, 61, 130), rgb(0, 144, 255)); */
@@ -301,7 +330,6 @@
 }
 
 .rank-order-container {
-  cursor: pointer;
   font-size: 13px;
 }
 
@@ -363,6 +391,47 @@
 .slider-image {
   height: 40px;
   width: 40px;
+}
+
+.exp-row-root {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+}
+.exp-row-label {
+  flex: 1 0 140px;
+}
+.exp-action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 20px;
+  user-select: none;
+}
+.exp-lv-action {
+  width: 96px;
+}
+.exp-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+.exp-value-label {
+  width: 36px;
+  text-align: right;
+}
+.exp-class-change-container {
+  font-size: 13px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  gap: 10px;
 }
 
 .DropdownMenuContent,

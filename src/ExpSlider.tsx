@@ -120,40 +120,35 @@ export const ExpSlider = ({
   }, [unitData])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'end',
-          alignItems: 'center',
-          gap: 20,
-        }}
+    <div className='exp-row-root'>
+      <div className='exp-row-label'>
+        {getDisplayName(unit)}, {getDisplayName(currentJob)}
+      </div>
+      <Slider
+        min={0}
+        max={6000}
+        value={sliderValues}
+        step={1}
+        onValueChange={(val) => updateExp(val[val.length - 1])}
       >
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Image className='slider-image' name={unit} />
+      </Slider>
+      <div className='exp-action-container'>
+        <div className='exp-lv-action'>
           <div>LV: {currentLevel}</div>
-
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 10,
-            }}
-          >
+          <div className='exp-action'>
             <MinusCircledIcon
               className={'ExpIcon'}
               onClick={() => updateExp(currentExp - 100)}
             />
-            <div>{currentExp}</div>
+            <div className='exp-value-label'>{currentExp}</div>
             <PlusCircledIcon
               className={'ExpIcon'}
               onClick={() => updateExp(currentExp + 100)}
             />
           </div>
         </div>
-        <div>
+        <div className='exp-class-change-container'>
           <JobChangeDropdown
             unit={unit}
             mapAdvanced={
@@ -169,27 +164,6 @@ export const ExpSlider = ({
             Undo
           </button>
         </div>
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          gap: 10,
-          alignItems: 'center',
-        }}
-      >
-        <div style={{ flex: '1 0 140px' }}>
-          {getDisplayName(unit)}, {getDisplayName(currentJob)}
-        </div>
-        <Slider
-          min={0}
-          max={6000}
-          value={sliderValues}
-          step={1}
-          onValueChange={(val) => updateExp(val[val.length - 1])}
-        >
-          <Image className='slider-image' name={unit} />
-        </Slider>
       </div>
     </div>
   )
