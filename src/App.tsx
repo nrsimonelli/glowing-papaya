@@ -1,38 +1,49 @@
 import { useState } from 'react'
 import './App.css'
 import { Mode } from './Mode'
-
 import { RankOverview } from './RankOverivew'
 import { FavoriteList } from './FavoriteList'
-import { CharacterDetail, UnitName } from './utils/types'
-import { Slider } from './components/Slider'
-import { Image } from './components/Image'
-import { AlphaSlider } from './AlphaSlider'
+import { CharacterDetail } from './utils/types'
 import { TeamPlanner } from './TeamPlanner'
 
 export const App = () => {
   const [mode, setMode] = useState<'Overview' | 'Favorites' | 'Planner'>(
-    'Planner'
+    'Overview'
   )
   const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
-  const isOverview = mode === 'Overview'
-  const testNames: UnitName[] = ['VEYLE', 'JADE']
 
   return (
-    <div>
-      {/* Heading */}
+    <div className='app-root'>
       <h1>
         Fire Emblem <span className='gradient-text'>Engage</span>
       </h1>
       <h3>Choose what you would like to compare below</h3>
-      {/* Toggle here */}
       <Mode mode={mode} setMode={setMode} />
       <p className='prompt-text'>
-        {isOverview
-          ? 'Select up to three stats to rank units'
-          : 'Select your option and click Add'}
+        {mode === 'Overview' && (
+          <span>
+            Check out a ranked list of the cast by combined{' '}
+            <span className={'gradient-text'}>growth rates.</span> Get started
+            by selecting a particular class and up to three stats.
+          </span>
+        )}
+        {mode === 'Favorites' && (
+          <span>
+            View your Favorites! See growth rates as well as the{' '}
+            <span className={'gradient-text'}>maximum stats </span>
+            for each of your selected characters. Add to your list by using the
+            fields below.
+          </span>
+        )}
+        {/* {mode === 'Planner' && (
+          <span>
+            Get a look into each character and their{' '}
+            <span className={'gradient-text'}>personal base stats</span> over
+            time. Use the filters and sliders below to get the most out of this
+            page.
+          </span>
+        )} */}
       </p>
-      {/* SECTION */}
       <FavoriteList
         mode={mode}
         characterList={characterList}

@@ -118,14 +118,14 @@ export const GraphDisplay = ({
         <XAxis
           dataKey={'id'}
           tickFormatter={(value) => UNIT_NAME[value as UnitName]}
-          stroke='hsla(0, 0%, 100%, 0.87)'
+          stroke='hsl(250, 3%, 47%)'
           fontSize={13}
           tickLine={false}
           axisLine={false}
         />
         <YAxis
           yAxisId={'stats'}
-          stroke='hsla(0, 0%, 100%, 0.87)'
+          stroke='hsl(250, 3%, 47%)'
           fontSize={13}
           tickLine={false}
           axisLine={false}
@@ -134,7 +134,7 @@ export const GraphDisplay = ({
           yAxisId={'exp'}
           orientation='right'
           domain={[0, 6000]}
-          stroke='hsla(0, 0%, 100%, 0.87)'
+          stroke='hsl(250, 3%, 47%)'
           fontSize={13}
           tickLine={false}
           axisLine={false}
