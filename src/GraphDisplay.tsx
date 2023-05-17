@@ -2,6 +2,7 @@ import {
   Bar,
   BarChart,
   Legend,
+  LegendProps,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -10,6 +11,11 @@ import {
 import { InitialUnitData, InitialStatData, StatName } from './TeamPlanner'
 import { UNIT_NAME } from './constants'
 import { UnitName } from './utils/types'
+import {
+  ValueType,
+  Payload,
+} from 'recharts/types/component/DefaultTooltipContent'
+import { useState } from 'react'
 
 export const GraphDisplay = ({
   unitData,
@@ -37,6 +43,7 @@ export const GraphDisplay = ({
         RES: RES,
         LCK: LCK,
         BLD: BLD,
+        BST: HP + STR + MAG + DEX + SPD + DEF + RES + LCK + BLD,
       }
     })
 
@@ -46,49 +53,63 @@ export const GraphDisplay = ({
     return data.totalExp - data.baseExp
   }
 
-  // const colorList = [
-  //   '#001D70',
-  //   '#00318A',
-  //   '#0047A5',
-  //   '#085EC0',
-  //   '#3D76DD',
-  //   '#5B8FF9',
-  //   '#7DAAFF',
-  //   '#9AC5FF',
-  //   '#B8E1FF',
-  // ]
+  const getRatingDiff = (data: { [x: string]: number }) => {
+    return statData.reduce((acc, stat) => {
+      if (stat.id !== 'BST') {
+        return (acc -= data[stat.id])
+      }
+      return acc
+    }, data.BST)
+  }
 
-  const colorList = [
-    '#209FED',
-    '#1B6BED',
-    '#1444ED',
-    '#A0BFFF',
-    '#8881FF',
-    '#6752FF',
-    '#D7D1FF',
-    '#B78DFF',
-    '#8B59FF',
-  ]
-
-  const getColor = (index: number) => {
-    const numberOfColors = statData.length
-    switch (numberOfColors) {
-      case 1:
-      case 2:
-        return colorList[index + 3]
-      case 3:
-      case 4:
-      case 5:
-        return colorList[index + 2]
-      case 6:
-      case 7:
-        return colorList[index + 1]
-      case 8:
-      case 9:
-        return colorList[index]
-      default:
-        return colorList[index]
+  const formatTooltipValue = (
+    value: ValueType,
+    name: string | number,
+    item: Payload<ValueType, string | number>
+  ) => {
+    if (name === 'Rating') {
+      return Math.floor(item.payload.BST)
     }
+    return Math.floor(Number(value))
+  }
+
+  const initialOpacity = {
+    HP: 1,
+    STR: 1,
+    MAG: 1,
+    DEX: 1,
+    SPD: 1,
+    DEF: 1,
+    RES: 1,
+    LCK: 1,
+    BLD: 1,
+    BST: 1,
+    baseExp: 1,
+    investedExp: 1,
+  }
+  type Opacity = typeof initialOpacity & { [key: string]: number }
+  const [opacity, setOpacity] = useState<Opacity>(initialOpacity)
+
+  const handleMouseLeave = () => {
+    setOpacity(initialOpacity)
+  }
+
+  const handleMouseEnter = (o: { dataKey: { name: string | number } }) => {
+    const fnToKey: { [key: string]: string } = {
+      getExpDiff: 'investedExp',
+      getRatingDiff: 'BST',
+    }
+
+    const dataKeyName = o.dataKey?.name
+    const dataKey = fnToKey[dataKeyName] ?? o.dataKey
+
+    setOpacity((prevOpacity) => {
+      const updatedOpacity = { ...prevOpacity }
+      Object.keys(updatedOpacity).forEach((key) => {
+        updatedOpacity[key] = key === dataKey ? 1 : 0.5
+      })
+      return updatedOpacity
+    })
   }
 
   return (
@@ -97,14 +118,14 @@ export const GraphDisplay = ({
         <XAxis
           dataKey={'id'}
           tickFormatter={(value) => UNIT_NAME[value as UnitName]}
-          stroke='#888888'
+          stroke='hsla(0, 0%, 100%, 0.87)'
           fontSize={13}
           tickLine={false}
           axisLine={false}
         />
         <YAxis
           yAxisId={'stats'}
-          stroke='#888888'
+          stroke='hsla(0, 0%, 100%, 0.87)'
           fontSize={13}
           tickLine={false}
           axisLine={false}
@@ -113,7 +134,7 @@ export const GraphDisplay = ({
           yAxisId={'exp'}
           orientation='right'
           domain={[0, 6000]}
-          stroke='#888888'
+          stroke='hsla(0, 0%, 100%, 0.87)'
           fontSize={13}
           tickLine={false}
           axisLine={false}
@@ -127,21 +148,26 @@ export const GraphDisplay = ({
             border: 'transparent',
           }}
           cursor={false}
-          formatter={(value) => Math.floor(Number(value))}
+          formatter={(value, name, item) =>
+            formatTooltipValue(value, name, item)
+          }
         />
         <Legend
           align={'center'}
           verticalAlign={'bottom'}
           layout={'horizontal'}
+          onMouseEnter={handleMouseEnter as LegendProps['onMouseEnter']}
+          onMouseLeave={handleMouseLeave}
         />
         {statData.map(({ id }, index) => (
           <Bar
             key={`${id}-bar`}
             yAxisId={'stats'}
-            dataKey={id}
+            dataKey={id === 'BST' ? getRatingDiff : id}
             name={StatName[id].label}
             stackId={'a'}
             fill={StatName[id].color}
+            fillOpacity={opacity[id]}
             radius={index === statData.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
           />
         ))}
@@ -151,6 +177,7 @@ export const GraphDisplay = ({
           name={'Base Exp'}
           stackId={'b'}
           fill='#65789B'
+          fillOpacity={opacity.baseExp}
           radius={[0, 0, 0, 0]}
         />
         <Bar
@@ -159,6 +186,7 @@ export const GraphDisplay = ({
           name={'Invested Exp'}
           stackId={'b'}
           fill='#61DDAA'
+          fillOpacity={opacity.investedExp}
           radius={[4, 4, 0, 0]}
         />
       </BarChart>
