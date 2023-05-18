@@ -122,8 +122,8 @@ export const ExpSlider = ({
   }, [unitData])
 
   return (
-    <div className='exp-row-root'>
-      <div className='exp-row-label'>
+    <div className='ExpRowRoot'>
+      <div className='ExpRowLabel'>
         {getDisplayName(unit)}, {getDisplayName(currentJob)}
       </div>
       <Slider
@@ -133,24 +133,24 @@ export const ExpSlider = ({
         step={1}
         onValueChange={(val) => updateExp(val[val.length - 1])}
       >
-        <Image className='slider-image' name={unit} />
+        <Image className='SliderImage' name={unit} />
       </Slider>
-      <div className='exp-action-container'>
-        <div className='exp-lv-action'>
+      <div className='ExpActionContainer'>
+        <div className='ExpLvAction'>
           <div>LV: {currentLv}</div>
-          <div className='exp-action'>
+          <div className='ExpAction'>
             <MinusCircledIcon
               className={'ExpIcon'}
               onClick={() => updateExp(currentExp - 100)}
             />
-            <div className='exp-value-label'>{currentExp}</div>
+            <div className='ExpValueLabel'>{currentExp}</div>
             <PlusCircledIcon
               className={'ExpIcon'}
               onClick={() => updateExp(currentExp + 100)}
             />
           </div>
         </div>
-        <div className='exp-class-change-container'>
+        <div className='ExpClassChangeContainer'>
           <JobChangeDropdown
             unit={unit}
             mapAdvanced={isAdvanced || isBase ? currentLv > 9 : currentLv > 20}
@@ -159,7 +159,7 @@ export const ExpSlider = ({
             isMaxed={currentExp === expCap}
           />
           <button
-            className='undo-class-button'
+            className='UndoClassButton'
             disabled={disableUndo}
             onClick={handleUndoChange}
             data-animate={!disableUndo}

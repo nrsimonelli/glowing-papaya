@@ -94,7 +94,7 @@ export const FavoriteList = ({
     <div>
       {mode === 'Favorites' && (
         <>
-          <div className='option-row'>
+          <div className='OptionRow'>
             <SelectUnit value={selectedUnit} onValueChange={setSelectedUnit} />
             <SelectJob
               value={selectedJob}
@@ -112,7 +112,7 @@ export const FavoriteList = ({
               Clear
             </button>
           </div>
-          <div className='character-display-container' ref={parent}>
+          <div className='CharacterDisplayContainer' ref={parent}>
             {characterList.map((character) => (
               <CharacterCard
                 key={character.ID}

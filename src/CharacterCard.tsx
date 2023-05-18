@@ -43,35 +43,35 @@ export const CharacterCard = ({
   }
 
   return (
-    <div className='card-root'>
-      <div className='card-image'>
+    <div className='CardRoot'>
+      <div className='CardImage'>
         <Image className='square' name={UNIT} />
       </div>
       <div className='delete' onClick={() => handleDelete(ID)}>
-        <TrashIcon className='delete-icon' />
+        <TrashIcon className='DeleteIcon' />
       </div>
-      <div className='card-detail'>
-        <div className='detail-row'>
-          <div className='detail-class'>{getDisplayName(JOB)}</div>
+      <div className='CardDetail'>
+        <div className='DetailRow'>
+          <div className='DetailClass'>{getDisplayName(JOB)}</div>
         </div>
         {STAT_KEY.map((stat) => (
-          <div key={stat} className='detail-row'>
-            <span className='row-name'>{stat}: </span>
-            <div className='row-bar'>
+          <div key={stat} className='DetailRow'>
+            <span className='RowName'>{stat}: </span>
+            <div className='RowBar'>
               <span
-                className='bar-bg'
+                className='BarBg'
                 style={{ width: `${getBarWidth(stat)}%` }}
               >
                 <span
                   className={`${getStatColor(
                     GROWTH[stat],
                     minMax[stat]
-                  )} row-value`}
+                  )} RowValue`}
                 >
                   {GROWTH[stat]}%
                 </span>
               </span>
-              <span className={`bar-fill ${getValueColor(stat)}`}>
+              <span className={`BarFill ${getValueColor(stat)}`}>
                 {CAP[stat]}
               </span>
             </div>

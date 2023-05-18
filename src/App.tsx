@@ -13,24 +13,24 @@ export const App = () => {
   const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
 
   return (
-    <div className='app-root'>
+    <div className='AppRoot'>
       <h1>
-        Fire Emblem <span className='gradient-text'>Engage</span>
+        Fire Emblem <span className='GradientText'>Engage</span>
       </h1>
-      <h3>Choose what you would like to compare below</h3>
+      <h3>Custom tools to help you make the most of your Engage experience</h3>
       <Mode mode={mode} setMode={setMode} />
-      <p className='prompt-text'>
+      <p className='PromptText'>
         {mode === 'Overview' && (
           <span>
             Check out a ranked list of the cast by combined{' '}
-            <span className={'gradient-text'}>growth rates.</span> Get started
-            by selecting a particular class and up to three stats.
+            <span className={'GradientText'}>growth rates.</span> Get started by
+            selecting a particular class and up to three stats.
           </span>
         )}
         {mode === 'Favorites' && (
           <span>
             View your Favorites! See growth rates as well as the{' '}
-            <span className={'gradient-text'}>maximum stats </span>
+            <span className={'GradientText'}>maximum stats </span>
             for each of your selected characters. Add to your list by using the
             fields below.
           </span>
@@ -38,7 +38,7 @@ export const App = () => {
         {/* {mode === 'Planner' && (
           <span>
             Get a look into each character and their{' '}
-            <span className={'gradient-text'}>personal base stats</span> over
+            <span className={'GradientText'}>personal base stats</span> over
             time. Use the filters and sliders below to get the most out of this
             page.
           </span>

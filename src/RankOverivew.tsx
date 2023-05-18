@@ -23,8 +23,8 @@ export const RankOverview = ({
 
   const getClassName = (id: string) => {
     return characterList.some((character) => character.ID === id)
-      ? 'rank-image favorite'
-      : 'rank-image'
+      ? 'RankImage favorite'
+      : 'RankImage'
   }
 
   const updateFavorite = (unit: UnitName, job: JobName | 'default') => {
@@ -62,17 +62,17 @@ export const RankOverview = ({
     <div>
       {mode === 'Overview' && (
         <>
-          <div className='option-col'>
+          <div className='OptionCol'>
             <SelectJob value={selectedJob} onValueChange={setSelectedJob} />
             <RankToggle statList={statList} setStatList={setStatList} />
           </div>
           {/* DISPLAY UNITS */}
-          <div className='rank-display-container' ref={parent}>
+          <div className='RankDisplayContainer' ref={parent}>
             {rankOrder.length > 0 &&
               rankOrder.map((rank) => (
-                <div key={rank.ID} className='rank-order-container'>
+                <div key={rank.ID} className='RankOrderContainer'>
                   <div
-                    className='anti-flicker'
+                    className='AntiFlicker'
                     onClick={() => updateFavorite(rank.ID, selectedJob)}
                   >
                     <Image
@@ -87,15 +87,15 @@ export const RankOverview = ({
                     }}
                   >
                     {statList.map((s) => (
-                      <div className='character-stat-line' key={s}>
-                        <div className='character-stat-label'>{s}:</div>
-                        <div className='character-stat-value'>{rank[s]}</div>
+                      <div className='CharacterStatLine' key={s}>
+                        <div className='CharacterStatLabel'>{s}:</div>
+                        <div className='CharacterStatValue'>{rank[s]}</div>
                       </div>
                     ))}
                     {statList.length > 1 && (
-                      <div className='character-stat-line'>
-                        <div className='character-stat-label'>Total:</div>
-                        <div className='character-stat-value'>{rank.RST}</div>
+                      <div className='CharacterStatLine'>
+                        <div className='CharacterStatLabel'>Total:</div>
+                        <div className='CharacterStatValue'>{rank.RST}</div>
                       </div>
                     )}
                   </div>

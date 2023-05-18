@@ -7,7 +7,7 @@ export const Toggle = React.forwardRef<
 >(({ children, ...props }, forwardedRef) => {
   return (
     <TogglePrimitive.Root
-      className={'toggle-root'}
+      className={'ToggleRoot'}
       {...props}
       ref={forwardedRef}
     >
@@ -22,7 +22,7 @@ export const ToggleOption = React.forwardRef<
 >(({ children, ...props }, forwardedRef) => {
   return (
     <TogglePrimitive.Item
-      className={'toggle-item'}
+      className={'ToggleItem'}
       {...props}
       ref={forwardedRef}
     >

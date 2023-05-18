@@ -12,21 +12,21 @@ export const Select = React.forwardRef<
 >(({ children, ...props }, forwardedRef) => {
   return (
     <SelectPrimitive.Root {...props}>
-      <SelectPrimitive.Trigger className={'select-trigger'} ref={forwardedRef}>
+      <SelectPrimitive.Trigger className={'SelectTrigger'} ref={forwardedRef}>
         <SelectPrimitive.Value />
         <SelectPrimitive.Icon>
           <ChevronDownIcon />
         </SelectPrimitive.Icon>
       </SelectPrimitive.Trigger>
       <SelectPrimitive.Portal>
-        <SelectPrimitive.Content className={'select-content'}>
-          <SelectPrimitive.ScrollUpButton className={'select-scroll'}>
+        <SelectPrimitive.Content className={'SelectContent'}>
+          <SelectPrimitive.ScrollUpButton className={'SelectScroll'}>
             <ChevronUpIcon />
           </SelectPrimitive.ScrollUpButton>
-          <SelectPrimitive.Viewport className={'select-viewport'}>
+          <SelectPrimitive.Viewport className={'SelectViewport'}>
             {children}
           </SelectPrimitive.Viewport>
-          <SelectPrimitive.ScrollDownButton className={'select-scroll'}>
+          <SelectPrimitive.ScrollDownButton className={'SelectScroll'}>
             <ChevronDownIcon />
           </SelectPrimitive.ScrollDownButton>
         </SelectPrimitive.Content>
@@ -41,12 +41,12 @@ export const SelectItem = React.forwardRef<
 >(({ children, ...props }, forwardedRef) => {
   return (
     <SelectPrimitive.Item
-      className={'select-item'}
+      className={'SelectItem'}
       {...props}
       ref={forwardedRef}
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator className={'select-item-indicator'}>
+      <SelectPrimitive.ItemIndicator className={'SelectItemIndicator'}>
         <CheckIcon />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>

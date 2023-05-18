@@ -11,9 +11,9 @@ export const FilterPanel = ({
   children: ReactNode
 }) => {
   return (
-    <div className='filter-container'>
+    <div className='FilterContainer'>
       <div
-        className={'filter-content'}
+        className={'FilterContent'}
         data-state={isOpen ? 'expanded' : 'collapsed'}
       >
         {children}
@@ -27,7 +27,7 @@ export const FilterItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Checkbox.Root>
 >(({ title, children, ...props }, forwardedRef) => {
   return (
-    <div className='filter-item'>
+    <div className='FilterItem'>
       <Checkbox.Root
         id={title}
         ref={forwardedRef}

@@ -9,7 +9,7 @@ export const Image = ({
 }) => {
   const { image, loading, error } = useImage(name.toString())
   return (
-    <div className={`image-root ${className ?? ''}`}>
+    <div className={`ImageRoot ${className ?? ''}`}>
       {loading ? (
         <div className='image loading' />
       ) : error ? (

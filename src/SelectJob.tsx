@@ -23,7 +23,7 @@ export const SelectJob = ({
       {/* Map Jobs... */}
       {objectEntries(JOB_GROUP).map(([group, jobList]) => (
         <SelectGroup key={group}>
-          <SelectLabel className={'select-label'}>{group}</SelectLabel>
+          <SelectLabel className={'SelectLabel'}>{group}</SelectLabel>
           {objectEntries(jobList).map(([key, { isExclusive }]) => {
             if (!isExclusive) {
               return (

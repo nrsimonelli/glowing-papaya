@@ -376,18 +376,15 @@ export const TeamPlanner = ({
     <div>
       {mode === 'Planner' && (
         <>
-          <button
-            className={'filter-button'}
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <button className={'FilterButton'} onClick={() => setIsOpen(!isOpen)}>
             Filters
           </button>
           {showReset ? (
-            <button className={'filter-button'} onClick={resetUnitData}>
+            <button className={'FilterButton'} onClick={resetUnitData}>
               Reset
             </button>
           ) : (
-            <button className={'filter-button'} onClick={normalizeUnitData}>
+            <button className={'FilterButton'} onClick={normalizeUnitData}>
               Normalize
             </button>
           )}
@@ -402,7 +399,7 @@ export const TeamPlanner = ({
               }}
             >
               {objectKeys(UNIT_ORIGIN).map((country) => (
-                <div key={`${country}-col`} className='filter-column'>
+                <div key={`${country}-col`} className='FilterColumn'>
                   <FilterItem
                     key={country}
                     title={country}
@@ -411,7 +408,7 @@ export const TeamPlanner = ({
                       toggleByCountry(country, filterSectionState(country))
                     }
                   >
-                    <span className='filter-title'>{country}</span>
+                    <span className='FilterTitle'>{country}</span>
                   </FilterItem>
                   {unitDataByCountry(country).map(({ id, isVisible }) => (
                     <FilterItem

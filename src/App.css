@@ -7,52 +7,49 @@
   text-align: left;
   min-height: 100vh;
 }
-.app-root {
+.AppRoot {
   padding-top: 64px;
   min-width: 650px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: start;
-  min-height: 100vh; */
 }
+
 /* Heading */
-.prompt-text {
+.PromptText {
   margin-top: 40px;
   max-width: 600px;
   margin-right: auto;
 }
 
 /* Mode Toggle */
-.toggle-root {
+.ToggleRoot {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 8px;
 }
-.toggle-item {
+.ToggleItem {
   border-radius: 0;
 }
-.toggle-item:first-child {
+.ToggleItem:first-child {
   margin-left: 0;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-.toggle-item:last-child {
+.ToggleItem:last-child {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.toggle-item[data-state='on'] {
+.ToggleItem[data-state='on'] {
   background-color: var(--accent1);
 }
 
 /* Actions */
-.option-row {
+.OptionRow {
   display: flex;
   flex-direction: row;
   justify-content: start;
   gap: 20px;
 }
-.option-col {
+.OptionCol {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,35 +64,35 @@
 }
 
 /* SELECT */
-.select-trigger {
+.SelectTrigger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
   min-width: 164px;
 }
-.select-trigger:hover {
+.SelectTrigger:hover {
   background-color: var(--accent1);
 }
-.select-trigger:focus {
+.SelectTrigger:focus {
   box-shadow: 0 0 0 2px var(--accent1);
 }
-.select-content {
+.SelectContent {
   overflow: hidden;
   background-color: var(--ev-solid);
   border-radius: 8px;
 }
-.select-viewport {
+.SelectViewport {
   padding: 5px;
 }
-.select-scroll {
+.SelectScroll {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 25px;
   cursor: default;
 }
-.select-item {
+.SelectItem {
   line-height: 1;
   border-radius: 3px;
   display: flex;
@@ -105,14 +102,14 @@
   position: relative;
   user-select: none;
 }
-.select-item[data-disabled] {
+.SelectItem[data-disabled] {
   pointer-events: none;
 }
-.select-item[data-highlighted] {
+.SelectItem[data-highlighted] {
   outline: none;
   background-color: var(--accent1);
 }
-.select-item-indicator {
+.SelectItemIndicator {
   position: absolute;
   left: 0;
   width: 25px;
@@ -120,7 +117,7 @@
   align-items: center;
   justify-content: center;
 }
-.select-label {
+.SelectLabel {
   padding: 0 25px;
   line-height: 25px;
 }
@@ -138,7 +135,7 @@
 .fallback {
   background: var(--ev1);
 }
-.image-root {
+.ImageRoot {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -161,7 +158,7 @@
 }
 
 /* DISPLAY CARD */
-.card-root {
+.CardRoot {
   position: relative;
   border-radius: 8px;
   display: flex;
@@ -169,7 +166,7 @@
   align-items: center;
   background: var(--ev1);
 }
-.card-image {
+.CardImage {
   background: linear-gradient(
     to bottom right,
     rgb(233, 61, 130),
@@ -180,43 +177,43 @@
   padding-top: 10px;
   width: 100%;
 }
-.card-detail {
+.CardDetail {
   width: 160px;
   padding: 16px;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-.detail-row {
+.DetailRow {
   line-height: 1.5;
   display: flex;
   align-items: center;
 }
-.row-name {
+.RowName {
   text-align: left;
   width: 36px;
   font-size: 13px;
   padding-right: 4px;
 }
-.row-bar {
+.RowBar {
   flex: 1;
   display: flex;
   justify-content: start;
   align-items: center;
 }
-.bar-bg {
+.BarBg {
   background: var(--ev1);
   display: flex;
   align-items: center;
   border-radius: 2px;
   height: 15px;
 }
-.bar-fill {
+.BarFill {
   font-size: 13px;
   padding-left: 4px;
   text-align: right;
   flex: 1;
 }
-.row-value {
+.RowValue {
   padding-left: 4px;
   font-size: 13px;
   text-align: left;
@@ -235,7 +232,7 @@
   line-height: 1.5;
   justify-content: center;
 }
-.detail-class {
+.DetailClass {
   display: flex;
 }
 .delete {
@@ -247,161 +244,126 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* outline: 2px auto; */
   cursor: pointer;
   padding: 2px;
 }
-.delete-icon {
+.DeleteIcon {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-.card-root:hover .delete-icon {
+.CardRoot:hover .DeleteIcon {
   opacity: 1;
 }
 
 /* CHARACTER DISPLAY */
-.character-display-container {
+.CharacterDisplayContainer {
   display: flex;
   margin-top: 60px;
   gap: 20px;
   flex-wrap: wrap;
   max-width: 1040px;
 }
-.rank-display-container {
+.RankDisplayContainer {
   display: flex;
   flex-direction: row;
   margin-top: 60px;
   gap: 20px;
   flex-wrap: wrap;
-  /* current toolbar width ~ 647 */
   max-width: 647px;
   justify-content: center;
 }
-
 .favorite {
   background: linear-gradient(to top left, rgb(233, 61, 130), rgb(0, 144, 255));
 }
-.rank-image {
+.RankImage {
   margin-bottom: 4px;
   will-change: transform;
   transition: transform 450ms;
 }
-.anti-flicker {
+.AntiFlicker {
   cursor: pointer;
 }
-.anti-flicker:hover .rank-image {
+.AntiFlicker:hover .RankImage {
   transition: transform 150ms;
   transform: translateY(-10px);
 }
-.character-stat-line {
-  /* background: blue; */
+.CharacterStatLine {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* gap: 16; */
   width: 90px;
 }
-.character-stat-label {
+.CharacterStatLabel {
   padding-left: 10px;
-  /* margin-left: 8px; */
-  /* width: 33px; */
-  /* margin-right: 8px; */
 }
-.character-stat-value {
+.CharacterStatValue {
   padding-right: 10px;
-  /* margin-left: 16px; */
 }
-.gradient-text {
-  /* background: linear-gradient(to left, rgb(233, 61, 130), rgb(0, 144, 255)); */
+.GradientText {
   background: linear-gradient(to left, var(--top), var(--accent1));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-/* KEYFRAMES */
-@keyframes loading {
-  0% {
-    background-color: var(--ev1);
-  }
-  100% {
-    background-color: var(--ev2);
-  }
-}
-
-.rank-order-container {
+.RankOrderContainer {
   font-size: 13px;
 }
 
 /* SLIDER */
-.slider-root {
+.SliderRoot {
   position: relative;
   display: flex;
   align-items: center;
   user-select: none;
   touch-action: none;
-  /* width: 200px; */
   width: 100%;
   height: 20px;
-  /* margin-top: 20px; */
 }
-
-.slider-track {
+.SliderTrack {
   background-color: var(--ev4);
   position: relative;
   flex-grow: 1;
   border-radius: 9999px;
   height: 3px;
 }
-
-.slider-range {
+.SliderRange {
   position: absolute;
   background-color: white;
   border-radius: 9999px;
   height: 100%;
 }
-
-.slider-thumb {
+.SliderThumb {
   display: block;
-  /* background-color: var(--accent1); */
-  /* box-shadow: 0 2px 10px var(--blackA7); */
   border-radius: 50%;
 }
-.slider-thumb.base {
-  /* background-color: var(--accent1); */
-  /* box-shadow: 0 2px 10px var(--blackA7); */
+.SliderThumb.base {
 }
-.slider-thumb.invest {
+.SliderThumb.invest {
   width: 40px;
   height: 40px;
   background-color: var(--accent1);
-  /* box-shadow: 0 2px 10px var(--blackA7); */
 }
-.slider-thumb:hover {
+.SliderThumb:hover {
   background-color: var(--accent2);
 }
-.slider-thumb:focus {
+.SliderThumb:focus {
   outline: none;
-  /* box-shadow: 0 0 0 5px var(--blackA8); */
 }
-.slider-thumb:active {
-  /* background-color: aqua; */
+.SliderThumb:active {
 }
-
-.slider-image {
+.SliderImage {
   height: 40px;
   width: 40px;
 }
-
-.exp-row-root {
+.ExpRowRoot {
   display: flex;
   gap: 13px;
   align-items: center;
 }
-.exp-row-label {
+.ExpRowLabel {
   flex: 1 0 140px;
 }
-.exp-action-container {
+.ExpActionContainer {
   display: flex;
   flex-direction: row;
   justify-content: end;
@@ -409,10 +371,10 @@
   gap: 20px;
   user-select: none;
 }
-.exp-lv-action {
+.ExpLvAction {
   width: 96px;
 }
-.exp-action {
+.ExpAction {
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -420,11 +382,11 @@
   width: 100%;
   gap: 10px;
 }
-.exp-value-label {
+.ExpValueLabel {
   width: 36px;
   text-align: right;
 }
-.exp-class-change-container {
+.ExpClassChangeContainer {
   font-size: 13px;
   display: flex;
   flex-direction: row;
@@ -434,6 +396,7 @@
   gap: 10px;
 }
 
+/* DROPDOWN */
 .DropdownMenuContent,
 .DropdownMenuSubContent {
   min-width: 200px;
@@ -469,7 +432,6 @@
 .DropdownMenuSubTrigger {
   font-size: 13px;
   line-height: 1;
-  /* color: var(--violet11); */
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -490,22 +452,18 @@
 .DropdownMenuRadioItem[data-highlighted],
 .DropdownMenuSubTrigger[data-highlighted] {
   background-color: var(--ev1);
-  /* color: var(--violet1); */
 }
-
 .DropdownMenuLabel {
   padding-left: 25px;
   font-size: 12px;
   line-height: 25px;
   color: var(--disabled);
 }
-
 .DropdownMenuSeparator {
   height: 1px;
   background-color: var(--accent1);
   margin: 5px;
 }
-
 .DropdownMenuItemIndicator {
   position: absolute;
   left: 0;
@@ -514,13 +472,22 @@
   align-items: center;
   justify-content: center;
 }
-
-.undo-class-button[data-animate='true'] {
+.UndoClassButton[data-animate='true'] {
   animation: tilt 250ms forwards;
 }
 
 .DropdownTrigger[data-animate='true'] {
   animation: tilt 250ms forwards;
+}
+
+/* KEYFRAMES */
+@keyframes loading {
+  0% {
+    background-color: var(--ev1);
+  }
+  100% {
+    background-color: var(--ev2);
+  }
 }
 
 @keyframes tilt {
@@ -595,17 +562,12 @@
   justify-content: center;
   cursor: default;
 }
-.CheckboxRoot:hover {
-  /* background-color: var(--ev2); */
-}
 .CheckboxRoot:focus {
   box-shadow: 0 0 0 2px var(--accent1);
 }
-
 .CheckboxIndicator {
   color: var(--accent1);
 }
-
 .Label {
   color: var(--text);
   padding-left: 13px;
@@ -613,14 +575,12 @@
   line-height: 1;
 }
 
-.CheckboxRow {
-}
-
-.filter-container {
+/* FILTER */
+.FilterContainer {
   display: flex;
   flex-direction: column;
 }
-.filter-content {
+.FilterContent {
   height: 0;
   transition: height 0.3s ease-in-out;
   padding-top: 20px;
@@ -630,32 +590,28 @@
   padding-right: 4px;
   padding-left: 4px;
 }
-.filter-content[data-state='expanded'] {
-  /* transform: translateY(0); */
-  /* animation-name: slideRightAndFade; */
+.FilterContent[data-state='expanded'] {
   height: 260px;
   padding-bottom: 20px;
 }
-.filter-column {
+.FilterColumn {
   display: flex;
   flex-direction: column;
   width: 110px;
   gap: 4px;
 }
-.filter-item {
+.FilterItem {
   display: flex;
   align-items: center;
 }
-.filter-title {
+.FilterTitle {
   font-weight: 700;
 }
-
-.filter-button {
+.FilterButton {
   margin-right: 5px;
   margin-left: 5px;
   width: 120px;
 }
-
 .ExpIcon {
   height: 20px;
   width: 20px;

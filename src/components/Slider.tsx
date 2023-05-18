@@ -9,15 +9,15 @@ export const Slider = React.forwardRef<
 
   return (
     <SliderPrimitive.Slider
-      className={'slider-root'}
+      className={'SliderRoot'}
       {...props}
       ref={forwardedRef}
     >
-      <SliderPrimitive.Track className={'slider-track'}>
-        <SliderPrimitive.Range className={'slider-range'} />
+      <SliderPrimitive.Track className={'SliderTrack'}>
+        <SliderPrimitive.Range className={'SliderRange'} />
       </SliderPrimitive.Track>
       {value?.map((_, i) => (
-        <SliderPrimitive.SliderThumb className={`slider-thumb`} key={i}>
+        <SliderPrimitive.SliderThumb className={`SliderThumb`} key={i}>
           {props.children}
         </SliderPrimitive.SliderThumb>
       ))}
