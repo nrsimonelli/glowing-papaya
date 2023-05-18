@@ -37,7 +37,7 @@ export const ExpSlider = ({
       ? Math.floor(EXP / 100) * 100 - (LV - 1) * 100
       : base.EXP
   )
-  const [baseLv, setBaseLv] = useState(unitData.length > 1 ? 1 : LV)
+  const [baseLv, setBaseLv] = useState(unitData.length > 1 ? 1 : base.LV)
   const [currentExp, setCurrentExp] = useState(EXP)
   const [currentJob, setCurrentJob] = useState<JobName>(JOB)
   const [currentLv, setCurrentLv] = useState(LV)
