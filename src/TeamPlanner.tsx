@@ -449,6 +449,7 @@ export const TeamPlanner = ({
               flexDirection: 'column',
               gap: 40,
               paddingTop: 20,
+              paddingBottom: 20,
             }}
           >
             {unitData.map(({ isVisible, id, data, base }) => {

@@ -153,7 +153,9 @@ export const ExpSlider = ({
         <div className='ExpClassChangeContainer'>
           <JobChangeDropdown
             unit={unit}
-            mapAdvanced={isAdvanced || isBase ? currentLv > 9 : currentLv > 20}
+            mapAdvanced={
+              isAdvanced || (isBase ? currentLv > 9 : currentLv > 20)
+            }
             handleJobChange={handleJobChange}
             disabled={false}
             isMaxed={currentExp === expCap}
