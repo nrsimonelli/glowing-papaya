@@ -40,7 +40,7 @@ export const ExpSlider = ({
   const [baseLv, setBaseLv] = useState(unitData.length > 1 ? 1 : LV)
   const [currentExp, setCurrentExp] = useState(EXP)
   const [currentJob, setCurrentJob] = useState<JobName>(JOB)
-  const [currentLevel, setCurrentLevel] = useState(LV)
+  const [currentLv, setCurrentLv] = useState(LV)
 
   const [sliderValues, setSliderValues] = useState([
     base.EXP,
@@ -62,10 +62,10 @@ export const ExpSlider = ({
       value > expCap ? expCap : value < baseExp ? baseExp : value
     const updatedLevel = Math.floor((updatedExp - baseExp) / 100 + baseLv)
 
-    if (currentLevel !== updatedLevel) {
+    if (currentLv !== updatedLevel) {
       setCurrentExp(updatedExp)
       setSliderValues([...sliderValues.slice(0, -1), updatedExp])
-      setCurrentLevel(updatedLevel)
+      setCurrentLv(updatedLevel)
       updateUnitData(unit, currentJob, updatedLevel, updatedExp)
     } else {
       setSliderValues([...sliderValues.slice(0, -1), updatedExp])
@@ -80,7 +80,7 @@ export const ExpSlider = ({
       0,
       Math.floor(currentExp / 100) * 100
     )
-    setCurrentLevel(1)
+    setCurrentLv(1)
     setBaseLv(1)
     setBaseExp(Math.floor(currentExp / 100) * 100)
     setSliderValues(sliderCopy)
@@ -97,11 +97,13 @@ export const ExpSlider = ({
     setCurrentJob(previousData.JOB)
     setCurrentExp(previousData.EXP)
     setBaseExp(previoiusBaseExp)
-    setCurrentLevel(previousData.LV)
+    setCurrentLv(previousData.LV)
     setBaseLv(unitData.length >= 3 ? 1 : base.LV)
     setSliderValues((prevValues) => prevValues.slice(0, -1))
     removeUnitData(unit)
   }
+
+  const disableUndo = unitData.length === 1 || currentLv !== baseLv
 
   useEffect(() => {
     if (!isEqual(sliderValues, [base.EXP, ...unitData.map((x) => x.EXP)])) {
@@ -114,7 +116,7 @@ export const ExpSlider = ({
       setBaseLv(unitData.length > 1 ? 1 : base.LV)
       setCurrentExp(data.EXP)
       setCurrentJob(data.JOB)
-      setCurrentLevel(data.LV)
+      setCurrentLv(data.LV)
       setSliderValues([base.EXP, ...unitData.map((x) => x.EXP)])
     }
   }, [unitData])
@@ -135,7 +137,7 @@ export const ExpSlider = ({
       </Slider>
       <div className='exp-action-container'>
         <div className='exp-lv-action'>
-          <div>LV: {currentLevel}</div>
+          <div>LV: {currentLv}</div>
           <div className='exp-action'>
             <MinusCircledIcon
               className={'ExpIcon'}
@@ -151,15 +153,16 @@ export const ExpSlider = ({
         <div className='exp-class-change-container'>
           <JobChangeDropdown
             unit={unit}
-            mapAdvanced={
-              isAdvanced || isBase ? currentLevel > 9 : currentLevel > 20
-            }
+            mapAdvanced={isAdvanced || isBase ? currentLv > 9 : currentLv > 20}
             handleJobChange={handleJobChange}
             disabled={false}
+            isMaxed={currentExp === expCap}
           />
           <button
-            disabled={unitData.length === 1 || currentExp !== baseExp}
+            className='undo-class-button'
+            disabled={disableUndo}
             onClick={handleUndoChange}
+            data-animate={!disableUndo}
           >
             Undo
           </button>

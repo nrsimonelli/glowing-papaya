@@ -12,16 +12,22 @@ export const JobChangeDropdown = ({
   unit,
   mapAdvanced,
   disabled,
+  isMaxed,
   handleJobChange,
 }: {
   unit: UnitName
   mapAdvanced: boolean
   disabled: boolean
+  isMaxed: boolean
   handleJobChange: (arg: JobName) => void
 }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={'DropdownTrigger'} disabled={disabled}>
+      <DropdownMenuTrigger
+        className={'DropdownTrigger'}
+        disabled={disabled}
+        data-animate={isMaxed}
+      >
         Change Class
       </DropdownMenuTrigger>
       <DropdownMenuContent className={'DropdownMenuContent'}>
