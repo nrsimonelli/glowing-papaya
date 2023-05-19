@@ -621,3 +621,9 @@
 .ExpIcon:hover {
   transform: scale(1.1);
 }
+
+/* FOOTER */
+.FooterRoot {
+  height: 20px;
+  padding-top: 60px;
+}

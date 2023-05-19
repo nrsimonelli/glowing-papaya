@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import { Mode } from './Mode'
 import { RankOverview } from './RankOverivew'
@@ -60,6 +59,7 @@ export const App = () => {
         setCharacterList={setCharacterList}
       />
       <TeamPlanner mode={mode} />
+      <div className='FooterRoot'></div>
     </div>
   )
 }
