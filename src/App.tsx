@@ -5,12 +5,17 @@ import { RankOverview } from './RankOverivew'
 import { FavoriteList } from './FavoriteList'
 import { CharacterDetail } from './utils/types'
 import { TeamPlanner } from './TeamPlanner'
+import { useLocalStorage } from './utils/useLocalStorage'
 
 export const App = () => {
-  const [mode, setMode] = useState<'Overview' | 'Favorites' | 'Planner'>(
+  const [mode, setMode] = useLocalStorage<'Overview' | 'Favorites' | 'Planner'>(
+    'mode',
     'Overview'
   )
-  const [characterList, setCharacterList] = useState<CharacterDetail[]>([])
+  const [characterList, setCharacterList] = useLocalStorage<CharacterDetail[]>(
+    'characterList',
+    []
+  )
 
   return (
     <div className='AppRoot'>

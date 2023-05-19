@@ -143,8 +143,6 @@ export const TeamPlanner = ({
     const noStatsVisible = updatedStatData.every((stat) => !stat.isVisible)
 
     if (statId === 'BST' && (noStatsVisible || allStatsVisible)) {
-      console.log(statId, noStatsVisible, allStatsVisible)
-
       updatedStatData = updatedStatData.map((stat) => {
         if (stat.id !== statId) {
           return { ...stat, isVisible: noStatsVisible }
@@ -154,8 +152,6 @@ export const TeamPlanner = ({
     }
 
     if (statId !== 'BST' && (noStatsVisible || allStatsVisible)) {
-      console.log(statId, noStatsVisible, allStatsVisible)
-
       updatedStatData = updatedStatData.map((stat) => {
         if (stat.id === 'BST') {
           return { ...stat, isVisible: noStatsVisible }
