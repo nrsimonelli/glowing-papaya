@@ -2987,7 +2987,7 @@ export const PERSONAL_BASE = {
     },
   },
   MERRIN: {
-    LV: 16,
+    LV: 1,
     EXP: 1500,
     SP: 1500,
     JOB: 'WOLF_KNIGHT',
@@ -3021,7 +3021,7 @@ export const PERSONAL_BASE = {
     },
   },
   PANDREO: {
-    LV: 16,
+    LV: 1,
     EXP: 1500,
     SP: 1200,
     JOB: 'HIGH_PRIEST',
@@ -3038,7 +3038,7 @@ export const PERSONAL_BASE = {
     },
   },
   PANETTE: {
-    LV: 16,
+    LV: 1,
     EXP: 1500,
     SP: 1500,
     JOB: 'BERSERKER',
@@ -3140,7 +3140,7 @@ export const PERSONAL_BASE = {
     },
   },
   VANDER: {
-    LV: 16,
+    LV: 1,
     EXP: 1500,
     SP: 500,
     JOB: 'PALADIN',
