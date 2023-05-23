@@ -1,8 +1,8 @@
 /* Base */
 #root {
   margin: 0 auto;
-  padding-right: 32px;
-  padding-left: 32px;
+  padding-right: 16px;
+  padding-left: 16px;
   text-align: left;
   min-height: 100vh;
   width: 100%;
@@ -11,6 +11,11 @@
 .AppRoot {
   padding-top: 64px;
   width: 100%;
+}
+.AppTitle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 /* Heading */
 .SubHeading {
@@ -31,6 +36,7 @@
 /* Mode Toggle */
 .ToggleRoot {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 }
@@ -53,7 +59,7 @@
 /* Actions */
 .OptionRow {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: start;
   gap: 20px;
 }
@@ -269,6 +275,7 @@
   margin-top: 40px;
   gap: 20px;
   flex-wrap: wrap;
+  justify-content: center;
   /* max-width: 828px; */
 }
 .RankDisplayContainer {
@@ -366,12 +373,11 @@
 }
 .ExpRowRoot {
   display: flex;
+  flex-direction: column;
   gap: 13px;
   align-items: center;
 }
-.ExpRowLabel {
-  flex: 1 0 140px;
-}
+
 .ExpActionContainer {
   display: flex;
   flex-direction: row;
@@ -607,7 +613,7 @@
   padding-left: 4px;
 }
 .FilterContent[data-state='expanded'] {
-  height: 460px;
+  height: 660px;
   padding-bottom: 20px;
 }
 .FilterColumn {
@@ -747,9 +753,23 @@
 @media screen and (min-width: 828px) {
   #root {
     max-width: 828px;
+    padding-right: 32px;
+    padding-left: 32px;
   }
   .FilterContent[data-state='expanded'] {
     height: 280px;
+  }
+  .OptionRow {
+    flex-direction: row;
+  }
+  .CharacterDisplayContainer {
+    justify-content: start;
+  }
+  .ExpRowRoot {
+    flex-direction: row;
+  }
+  .ExpRowLabel {
+    flex: 1 0 140px;
   }
 }
 

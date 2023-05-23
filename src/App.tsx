@@ -19,7 +19,7 @@ export const App = () => {
 
   return (
     <div className='AppRoot'>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className='AppTitle'>
         <h1>
           Engage <span className='GradientText'>Plus</span>
         </h1>
@@ -29,7 +29,7 @@ export const App = () => {
         Data, tools, and visuals to help you get the most out of{' '}
         <span className='GradientText'>Fire Emblem Engage</span>.
       </h3>
-      <p className='PromptText'>
+      <div className='PromptText'>
         {mode === 'Overview' && (
           <>
             <h3>Character Overview</h3>
@@ -76,7 +76,7 @@ export const App = () => {
             </p>
           </>
         )}
-      </p>
+      </div>
       <FavoriteList
         mode={mode}
         characterList={characterList}
