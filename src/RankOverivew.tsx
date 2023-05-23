@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Image } from './components/Image'
 import { RankToggle } from './RankToggle'
 import { SelectJob } from './SelectJob'
@@ -6,6 +6,9 @@ import { useRankedList } from './utils/useRankedList'
 import { CharacterDetail, JobName, StatKey, UnitName } from './utils/types'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useCharacterData } from './utils/useCharacterData'
+import { Toast } from './components/Toast'
+import { ToastRef } from './components/Toast'
+import { getDisplayName } from './utils/getDisplayName'
 
 export const RankOverview = ({
   mode,
@@ -20,6 +23,7 @@ export const RankOverview = ({
   const [statList, setStatList] = useState<StatKey[]>([])
   const { rankOrder } = useRankedList(selectedJob, statList)
   const [parent] = useAutoAnimate()
+  const savedRef = useRef<ToastRef>(null)
 
   const getClassName = (id: string) => {
     return characterList.some((character) => character.ID === id)
@@ -38,6 +42,10 @@ export const RankOverview = ({
         (character) => character.ID !== id
       )
       setCharacterList(updatedList)
+      savedRef.current?.publish({
+        type: 'remove',
+        payload: `${getDisplayName(job)} ${getDisplayName(unit)}`,
+      })
     }
     if (!isFavorite) {
       const { combinedGrowth, personalCap } = useCharacterData(unit, job)
@@ -55,6 +63,10 @@ export const RankOverview = ({
           },
         },
       ])
+      savedRef.current?.publish({
+        type: 'add',
+        payload: `${getDisplayName(job)} ${getDisplayName(unit)}`,
+      })
     }
   }
 
@@ -104,6 +116,7 @@ export const RankOverview = ({
           </div>
         </>
       )}
+      <Toast ref={savedRef}>Favorites!</Toast>
     </div>
   )
 }
