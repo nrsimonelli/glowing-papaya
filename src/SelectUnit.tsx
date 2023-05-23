@@ -13,7 +13,6 @@ export const SelectUnit = ({ value, onValueChange }: SelectUnitProps) => {
       onValueChange={(value) => onValueChange(value as UnitName)}
     >
       <SelectItem value={'default'}>{'Select a character'}</SelectItem>
-      {/* Map Units... */}
       {objectEntries(UNIT_NAME).map(([unitKey, displayName]) => (
         <SelectItem key={unitKey} value={unitKey}>
           {displayName}

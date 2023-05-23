@@ -1,6 +1,6 @@
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon, MinusIcon } from '@radix-ui/react-icons'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import React from 'react'
 
 export const FilterPanel = ({

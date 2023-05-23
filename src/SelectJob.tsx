@@ -20,7 +20,6 @@ export const SelectJob = ({
       onValueChange={(val) => onValueChange(val as JobName)}
     >
       <SelectItem value={'default'}>{'Select a class'}</SelectItem>
-      {/* Map Jobs... */}
       {objectEntries(JOB_GROUP).map(([group, jobList]) => (
         <SelectGroup key={group}>
           <SelectLabel className={'SelectLabel'}>{group}</SelectLabel>

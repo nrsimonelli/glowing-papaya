@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Toggle, ToggleOption } from './components/Toggle'
 import { STAT_KEY } from './constants'
 import { StatKey } from './utils/types'
