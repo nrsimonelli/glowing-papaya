@@ -1,17 +1,21 @@
 :root {
-  --bg: hsl(0, 0%, 10%);
-  --ev-solid: hsl(0, 0%, 16%);
-  --ev1: hsla(0, 0%, 100%, 0.07);
-  --ev2: hsla(0, 0%, 100%, 0.09);
-  --ev3: hsla(0, 0%, 100%, 0.12);
-  --ev4: hsla(0, 0%, 100%, 0.15);
-  --text: hsla(0, 0%, 100%, 0.87);
+  --background: hsl(0, 0%, 10%);
+  --foreground: hsla(0, 0%, 100%, 0.87);
+  --primary: hsl(237, 100%, 70%);
+  --secondary: hsl(237, 86%, 64%);
+  --accent: hsl(192, 85%, 56%);
+
+  --fav-primary: hsl(336, 80%, 58%);
+  --fav-secondary: hsl(206, 100%, 50%);
+
+  --bg-success: hsl(155, 47%, 11%);
+  --bg-error: hsl(356, 43%, 16%);
+  --fg-success: hsl(151, 50%, 53%);
+  --fg-error: hsl(358, 100%, 69%);
+
+  --elevation-1: hsl(0, 0%, 16%);
+  --elevation-2: hsl(0, 0%, 22%);
   --disabled: hsl(250, 3%, 47%);
-  --accent1: hsl(237, 100%, 70%);
-  --accent2: hsl(237, 86%, 64%);
-  --top: hsl(192, 85%, 56%);
-  --positive: rgb(76, 195, 138);
-  --negative: hsl(358, 100%, 69%);
 
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -19,9 +23,6 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: var(--text);
-  background-color: var(--bg);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,13 +30,33 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* :root .light-theme {
+  --background: hsl(206, 30%, 98%);
+  --foreground: hsl(0, 0%, 10%);
+  --primary: hsl(237, 100%, 70%);
+  --secondary: hsl(237, 86%, 64%);
+  --accent: hsl(192, 85%, 56%);
+
+  --fav-primary: hsl(336, 80%, 58%);
+  --fav-secondary: hsl(206, 100%, 50%);
+
+  --bg-success: hsl(139, 55%, 95%);
+  --bg-error: hsl(360, 100%, 97%);
+  --fg-success: hsl(153, 67%, 29%);
+  --fg-error: hsl(358, 65%, 49%);
+
+  --elevation-1: hsla(237, 100%, 70%, 0.5);
+  --elevation-2: hsl(206, 30%, 98.8%);
+  --disabled: hsl(250, 3%, 47%);
+} */
+
 a {
   font-weight: 500;
-  color: var(--accent1);
+  color: var(--primary);
   text-decoration: inherit;
 }
 a:hover {
-  color: var(--accent2);
+  color: var(--secondary);
 }
 
 body {
@@ -44,6 +65,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: var(--foreground);
+  background-color: var(--background);
 }
 
 h1 {
@@ -58,12 +81,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--ev1);
+  background-color: var(--elevation-1);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: var(--accent1);
+  border-color: var(--primary);
 }
 button:hover:disabled {
   border-color: transparent;

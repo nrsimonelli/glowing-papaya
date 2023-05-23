@@ -5,6 +5,7 @@ import { FavoriteList } from './FavoriteList'
 import { CharacterDetail } from './utils/types'
 import { TeamPlanner } from './TeamPlanner'
 import { useLocalStorage } from './utils/useLocalStorage'
+import { Viewport } from '@radix-ui/react-toast'
 
 export const App = () => {
   const [mode, setMode] = useLocalStorage<'Overview' | 'Favorites' | 'Planner'>(
@@ -59,6 +60,7 @@ export const App = () => {
         setCharacterList={setCharacterList}
       />
       <TeamPlanner mode={mode} />
+      <Viewport className='ToastViewport' />
       <div className='FooterRoot'></div>
     </div>
   )
