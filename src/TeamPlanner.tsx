@@ -390,8 +390,9 @@ export const TeamPlanner = ({
                 display: 'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
-                justifyContent: 'center',
-                maxWidth: 1080,
+                justifyContent: 'start',
+                width: '100%',
+                maxWidth: '860px',
               }}
             >
               {objectKeys(UNIT_ORIGIN).map((country) => (
@@ -422,6 +423,7 @@ export const TeamPlanner = ({
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
+                  flexWrap: 'wrap',
                   gap: '13px',
                 }}
               >

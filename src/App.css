@@ -1,22 +1,31 @@
 /* Base */
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding-right: 32px;
   padding-left: 32px;
   text-align: left;
   min-height: 100vh;
+  width: 100%;
+  max-width: 678px;
 }
 .AppRoot {
   padding-top: 64px;
-  min-width: 650px;
+  width: 100%;
 }
-
 /* Heading */
+.SubHeading {
+  /* margin-top: 40px; */
+  max-width: 600px;
+  margin-right: auto;
+  margin-bottom: 80px;
+}
 .PromptText {
   margin-top: 40px;
   max-width: 600px;
   margin-right: auto;
+  margin-left: 0;
+  margin-bottom: 80px;
+  /* padding-bottom: 60px; */
 }
 
 /* Mode Toggle */
@@ -24,7 +33,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 8px;
 }
 .ToggleItem {
   border-radius: 0;
@@ -258,10 +266,10 @@
 /* CHARACTER DISPLAY */
 .CharacterDisplayContainer {
   display: flex;
-  margin-top: 60px;
+  margin-top: 40px;
   gap: 20px;
   flex-wrap: wrap;
-  max-width: 1040px;
+  /* max-width: 828px; */
 }
 .RankDisplayContainer {
   display: flex;
@@ -269,7 +277,6 @@
   margin-top: 60px;
   gap: 20px;
   flex-wrap: wrap;
-  max-width: 647px;
   justify-content: center;
 }
 .favorite {
@@ -474,12 +481,19 @@
   align-items: center;
   justify-content: center;
 }
-.UndoClassButton[data-animate='true'] {
-  animation: tilt 250ms forwards;
+
+.DropdownTrigger,
+.UndoClassButton {
+  will-change: border-color;
+  transition: border-color 450ms;
 }
 
-.DropdownTrigger[data-animate='true'] {
+.DropdownTrigger[data-animate='true'],
+.UndoClassButton[data-animate='true'] {
+  transition: border-color 150ms;
+  border-color: var(--primary);
   animation: tilt 250ms forwards;
+  /* animation: colorBorder 500ms forwards; */
 }
 
 /* KEYFRAMES */
@@ -500,7 +514,7 @@
     transform: rotate(5deg);
   }
   50% {
-    transform: rotate(0eg);
+    transform: rotate(0deg);
   }
   75% {
     transform: rotate(-5deg);
@@ -593,7 +607,7 @@
   padding-left: 4px;
 }
 .FilterContent[data-state='expanded'] {
-  height: 260px;
+  height: 460px;
   padding-bottom: 20px;
 }
 .FilterColumn {
@@ -728,4 +742,33 @@
 }
 .ToastAction:hover {
   border-color: transparent;
+}
+
+@media screen and (min-width: 828px) {
+  #root {
+    max-width: 828px;
+  }
+  .FilterContent[data-state='expanded'] {
+    height: 280px;
+  }
+}
+
+@media screen and (min-width: 1040px) {
+  #root {
+    max-width: 1040px;
+  }
+  .FilterContent[data-state='expanded'] {
+    height: 260px;
+  }
+  .ToggleRoot {
+    /* align-items: start; */
+    justify-content: start;
+  }
+  .OptionCol {
+    align-items: start;
+    /* justify-content: start; */
+  }
+  .RankDisplayContainer {
+    justify-content: start;
+  }
 }

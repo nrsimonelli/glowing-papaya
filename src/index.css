@@ -30,26 +30,6 @@
   -webkit-text-size-adjust: 100%;
 }
 
-/* :root .light-theme {
-  --background: hsl(206, 30%, 98%);
-  --foreground: hsl(0, 0%, 10%);
-  --primary: hsl(237, 100%, 70%);
-  --secondary: hsl(237, 86%, 64%);
-  --accent: hsl(192, 85%, 56%);
-
-  --fav-primary: hsl(336, 80%, 58%);
-  --fav-secondary: hsl(206, 100%, 50%);
-
-  --bg-success: hsl(139, 55%, 95%);
-  --bg-error: hsl(360, 100%, 97%);
-  --fg-success: hsl(153, 67%, 29%);
-  --fg-error: hsl(358, 65%, 49%);
-
-  --elevation-1: hsla(237, 100%, 70%, 0.5);
-  --elevation-2: hsl(206, 30%, 98.8%);
-  --disabled: hsl(250, 3%, 47%);
-} */
-
 a {
   font-weight: 500;
   color: var(--primary);
