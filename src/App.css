@@ -43,15 +43,7 @@
 .ToggleItem {
   border-radius: 0;
 }
-.ToggleItem:first-child {
-  margin-left: 0;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-.ToggleItem:last-child {
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
+
 .ToggleItem[data-state='on'] {
   background-color: var(--primary);
 }
@@ -770,6 +762,15 @@
   }
   .ExpRowLabel {
     flex: 1 0 140px;
+  }
+  .ToggleItem:first-child {
+    margin-left: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  .ToggleItem:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
 }
 

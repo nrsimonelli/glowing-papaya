@@ -12,6 +12,7 @@ import { ExpSlider } from './ExpSlider'
 import { useLevelUp } from './utils/useLevelUp'
 import { getDisplayName } from './utils/getDisplayName'
 import { GraphDisplay } from './GraphDisplay'
+import { useLocalStorage } from './utils/useLocalStorage'
 
 const initialUnitData = objectKeys(UNIT_NAME).map((unit) => ({
   id: unit,
@@ -114,10 +115,12 @@ export const TeamPlanner = ({
 }: {
   mode: 'Overview' | 'Favorites' | 'Planner'
 }) => {
-  const [unitData, setUnitData] = useState<InitialUnitData[]>(
+  const [unitData, setUnitData] = useLocalStorage<InitialUnitData[]>(
+    'teamPlanner',
     initialUnitData as InitialUnitData[]
   )
-  const [statData, setStatData] = useState<InitialStatData[]>(
+  const [statData, setStatData] = useLocalStorage<InitialStatData[]>(
+    'filterSettings',
     initialStatData as InitialStatData[]
   )
 
