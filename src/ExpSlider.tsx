@@ -41,6 +41,7 @@ export const ExpSlider = ({
   const [currentExp, setCurrentExp] = useState(EXP)
   const [currentJob, setCurrentJob] = useState<JobName>(JOB)
   const [currentLv, setCurrentLv] = useState(LV)
+  const maxExp = 6000
 
   const [sliderValues, setSliderValues] = useState([
     base.EXP,
@@ -55,7 +56,10 @@ export const ExpSlider = ({
   )
   const isBase = objectKeys(JOB_GROUP.BASE).some((job) => job === currentJob)
   const levelCap = isSpecial ? 40 : 20
-  const expCap = (levelCap - baseLv) * 100 + baseExp
+  const expCap =
+    (levelCap - baseLv) * 100 + baseExp > maxExp
+      ? maxExp
+      : (levelCap - baseLv) * 100 + baseExp
 
   const updateExp = (value: number) => {
     const updatedExp =
@@ -128,7 +132,7 @@ export const ExpSlider = ({
       </div>
       <Slider
         min={0}
-        max={6000}
+        max={maxExp}
         value={sliderValues}
         step={1}
         onValueChange={(val) => updateExp(val[val.length - 1])}
