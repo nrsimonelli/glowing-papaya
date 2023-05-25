@@ -108,6 +108,7 @@ export const ExpSlider = ({
   }
 
   const disableUndo = unitData.length === 1 || currentLv !== baseLv
+  const disableChange = !disableUndo || currentExp === maxExp
 
   useEffect(() => {
     if (!isEqual(sliderValues, [base.EXP, ...unitData.map((x) => x.EXP)])) {
@@ -161,8 +162,8 @@ export const ExpSlider = ({
               isAdvanced || (isBase ? currentLv > 9 : currentLv > 20)
             }
             handleJobChange={handleJobChange}
-            disabled={false}
-            isMaxed={currentExp === expCap}
+            disabled={disableChange}
+            isMaxed={currentExp === expCap && currentExp < maxExp}
           />
           <button
             className='UndoClassButton'
