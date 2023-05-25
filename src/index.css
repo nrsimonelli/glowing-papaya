@@ -62,11 +62,15 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: var(--elevation-1);
+  color: var(--foreground);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
   border-color: var(--primary);
+}
+button:disabled {
+  color: var(--disabled);
 }
 button:hover:disabled {
   border-color: transparent;
