@@ -2800,7 +2800,7 @@ export const PERSONAL_BASE = {
     },
   },
   GREGORY: {
-    LV: 20,
+    LV: 1,
     EXP: 1900,
     SP: 2000,
     JOB: 'SAGE',
@@ -2953,7 +2953,7 @@ export const PERSONAL_BASE = {
     },
   },
   MADELINE: {
-    LV: 20,
+    LV: 1,
     EXP: 1900,
     SP: 2000,
     JOB: 'GENERAL',
